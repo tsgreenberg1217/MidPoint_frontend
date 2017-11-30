@@ -2,13 +2,16 @@ import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import AddressBar from './addressBar'
 
+const apiKey =  ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
 
 export class MapContainer extends Component {
 
   constructor(){
     super()
     this.state = {
-      address: ''
+      address: '',
+      lng: 40,
+      lat: 30
     }
   }
 
@@ -18,17 +21,37 @@ export class MapContainer extends Component {
     })
   }
 
+  fetchCoordinates = () => {
+    console.log(this.state.address)
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.address}&key=${apiKey}`)
+    .then(res => res.json())
+    .then(json => this.setState({
+      lat: json.results[0].geometry.location.lat,
+      lng: json.results[0].geometry.location.lng},() => console.log(this.state)) )
+    // .then( () => window.location.reload(true) )
+
+  }
+
+  updateMapCenter = (event) => {
+
+  }
 
   handleAddressSubmit = (event) => {
     event.preventDefault()
-    console.log("Haaaaaay!!!!")
+    this.fetchCoordinates()
+    console.log(event)
   }
+
 
 render() {
   const style = {
     width: '50%',
     height: '50%'
   }
+
+
+
+  // debugger
     return (
       <div>
         <AddressBar
@@ -36,17 +59,16 @@ render() {
         value = {this.state.address}
         handleChange = {this.handleAddressChange}
         />
-        <Map google={this.props.google} zoom={14}
+        <Map google={this.props.google} zoom={5}
         style={style}
+        // onReady={this.fetchCoordinates}
         initialCenter={{
-          lat: 40.854885,
-          lng: -88.081807
+          lat: this.state.lat,
+          lng: this.state.lng
         }}>
 
         <Marker onClick={this.onMarkerClick}
         name={'Current location'} />
-
-
         </Map>
       </div>
     );
@@ -56,6 +78,7 @@ render() {
 export default GoogleApiWrapper({
   apiKey: ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
 })(MapContainer)
+
 
 
 
