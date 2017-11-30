@@ -1,25 +1,54 @@
 import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import AddressBar from './addressBar'
+
 
 export class MapContainer extends Component {
+
+  constructor(){
+    super()
+    this.state = {
+      address: ''
+    }
+  }
+
+  handleAddressChange = (event) =>{
+    this.setState({
+      address: event.target.value
+    })
+  }
+
+
+  handleAddressSubmit = (event) => {
+    event.preventDefault()
+    console.log("Haaaaaay!!!!")
+  }
+
 render() {
   const style = {
-    width: '100%',
-    height: '100%'
+    width: '50%',
+    height: '50%'
   }
     return (
-      <Map google={this.props.google} zoom={14}
-      style={style}
-          initialCenter={{
-            lat: 40.854885,
-            lng: -88.081807
-          }}>
+      <div>
+        <AddressBar
+        handleSubmit={this.handleAddressSubmit}
+        value = {this.state.address}
+        handleChange = {this.handleAddressChange}
+        />
+        <Map google={this.props.google} zoom={14}
+        style={style}
+        initialCenter={{
+          lat: 40.854885,
+          lng: -88.081807
+        }}>
 
         <Marker onClick={this.onMarkerClick}
-                name={'Current location'} />
+        name={'Current location'} />
 
 
-      </Map>
+        </Map>
+      </div>
     );
   }
 }
