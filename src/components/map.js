@@ -1,8 +1,13 @@
 import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import AddressBar from './addressBar'
+import AddressOptions from './addressOptions'
+
 
 const apiKey =  ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
+const seeding = ['home','work','new' ]
 
 export class MapContainer extends Component {
 
@@ -11,7 +16,8 @@ export class MapContainer extends Component {
     this.state = {
       address: '',
       lng: 40,
-      lat: 30
+      lat: 30,
+      addrOptions: seeding,
     }
   }
 
@@ -43,6 +49,8 @@ export class MapContainer extends Component {
   }
 
 
+
+
 render() {
   const style = {
     width: '50%',
@@ -59,6 +67,7 @@ render() {
         value = {this.state.address}
         handleChange = {this.handleAddressChange}
         />
+        <AddressOptions addresses={this.state.addrOptions}/>
         <Map google={this.props.google} zoom={5}
         style={style}
         // onReady={this.fetchCoordinates}
