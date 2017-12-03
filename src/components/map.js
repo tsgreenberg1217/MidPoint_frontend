@@ -46,7 +46,7 @@ export class MapContainer extends Component {
         address: this.state.address,
         lat: this.state.lat,
         lng: this.state.lng,
-        type: this.state.addressType
+        addressType: this.state.addressType
       })
     }
     fetch(`http://localhost:3001/addresses`, body)
