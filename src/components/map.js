@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import AddressBar from './addressBar'
+import RestaurantList from './restaurantList'
 
 const apiKey =  ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
 
@@ -11,7 +12,8 @@ export class MapContainer extends Component {
     this.state = {
       address: '',
       lng: 40,
-      lat: 30
+      lat: 30,
+      yelpResults: []
     }
   }
 
@@ -22,17 +24,18 @@ export class MapContainer extends Component {
   }
 
   fetchCoordinates = () => {
+    console.log('hello')
     console.log(this.state.address)
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.address}&key=${apiKey}`)
     .then(res => res.json())
     .then(json => this.setState({
       lat: json.results[0].geometry.location.lat,
       lng: json.results[0].geometry.location.lng},() => this.fetchToYelp(this.state.lat,this.state.lng) ) )
-    // .then( () => window.location.reload(true) )
 
   }
 
   fetchToYelp(lat,lng){
+    console.log(lat)
     const body = {
       method: "POST",
       headers: {
@@ -40,13 +43,15 @@ export class MapContainer extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        lat: 40.7,
-        lng: -73.9
+        lat: lat,
+        lng: lng
       })
     }
 
-    fetch(`http://localhost:3000/adapters`, body)
-    .then(res => res.json()).then(json => console.log(json))
+    fetch(`http://localhost:3001/adapters`, body)
+    .then(res => res.json()).then(json => this.setState({
+      yelpResults: json.businesses
+    }, () => console.log(this.state.yelpResults)))
   }
 
   updateMapCenter = (event) => {
@@ -55,8 +60,8 @@ export class MapContainer extends Component {
 
   handleAddressSubmit = (event) => {
     event.preventDefault()
-    // this.fetchCoordinates()
-    this.fetchToYelp(this.state.lat,this.state.lng)
+    this.fetchCoordinates()
+    // this.fetchToYelp(this.state.lat,this.state.lng)
     console.log(event)
   }
 
@@ -88,6 +93,9 @@ render() {
         <Marker onClick={this.onMarkerClick}
         name={'Current location'} />
         </Map>
+          {this.state.yelpResults[1] ?
+            <RestaurantList style
+              results = {this.state.yelpResults}/>: <p>loading.....</p>}
       </div>
     );
   }
