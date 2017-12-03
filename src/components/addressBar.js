@@ -9,8 +9,9 @@ const AddressBar = (props) =>{
     value = {props.value}
     onChange = {props.handleChange}
     />
-    <button
-    type = 'submit'/>
+    <br/>
+    <button type = 'submit'> Submit</button>
+    <br/>
   </form>
 )
 }
