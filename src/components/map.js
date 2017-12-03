@@ -11,6 +11,7 @@ export class MapContainer extends Component {
     super()
     this.state = {
       address: '',
+      addressType: 'work',
       lng: 40,
       lat: 30,
       yelpResults: []
@@ -24,8 +25,8 @@ export class MapContainer extends Component {
   }
 
   fetchCoordinates = () => {
-    console.log('hello')
-    console.log(this.state.address)
+    // console.log('hello')
+    // console.log(this.state.address)
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.address}&key=${apiKey}`)
     .then(res => res.json())
     .then(json => this.setState({
@@ -33,6 +34,26 @@ export class MapContainer extends Component {
       lng: json.results[0].geometry.location.lng},() => this.fetchToYelp(this.state.lat,this.state.lng) ) )
 
   }
+
+  postCoordinates = () => {
+    const body = {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        address: this.state.address,
+        lat: this.state.lat,
+        lng: this.state.lng,
+        type: this.state.addressType
+      })
+    }
+    fetch(`http://localhost:3001/addresses`, body)
+    .then(res => res.json())
+    .then(json => console.log(json))
+  }
+
 
   fetchToYelp(lat,lng){
     console.log(lat)
@@ -51,7 +72,7 @@ export class MapContainer extends Component {
     fetch(`http://localhost:3001/adapters`, body)
     .then(res => res.json()).then(json => this.setState({
       yelpResults: json.businesses
-    }, () => console.log(this.state.yelpResults)))
+    }, () => this.postCoordinates() ))
   }
 
   updateMapCenter = (event) => {
@@ -62,7 +83,7 @@ export class MapContainer extends Component {
     event.preventDefault()
     this.fetchCoordinates()
     // this.fetchToYelp(this.state.lat,this.state.lng)
-    console.log(event)
+    // console.log(event)
   }
 
 
@@ -94,7 +115,7 @@ render() {
         name={'Current location'} />
         </Map>
           {this.state.yelpResults[1] ?
-            <RestaurantList style
+            <RestaurantList
               results = {this.state.yelpResults}/>: <p>loading.....</p>}
       </div>
     );
