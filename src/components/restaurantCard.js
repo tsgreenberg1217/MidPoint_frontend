@@ -4,8 +4,11 @@ const RestaurantCard = (props) => {
   console.log(`${props.name}`)
   return(
     <div key = {props.id} >
-      <img src = {props.image_url} alt='no image found'/>
-      <h3>{props.name}</h3>
+      <a href={props.url}>{props.name}</a>
+      <img src = {props.image} alt='no image found'
+      style = {{width: '50px'}}/>
+      <p> {props.location} </p>
+      <p> {props.phone} </p>
     </div>
   )
 }
