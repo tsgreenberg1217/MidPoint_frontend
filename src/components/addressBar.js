@@ -24,6 +24,8 @@ class AddressBar extends React.Component{
     });
   };
 
+
+
   addAddress(){
     this.setState({
       addresses: [...this.state.addresses, {address: ''}]
@@ -37,11 +39,15 @@ class AddressBar extends React.Component{
         this.props.handleSubmit(this.state)
       }}>
       {this.state.addresses.map((address,i) =>
-       (<input
+       (<div>
+         <input
         type = "text"
         onChange = {e => this.handleAddressChange(e.target.value, i)}
-        />)
-      )}
+        />
+        </div>
+      )
+      )
+    }
       <br/>
       <button onClick = {this.addAddress}>add address</button>
       <button type = 'submit'> Submit</button>
