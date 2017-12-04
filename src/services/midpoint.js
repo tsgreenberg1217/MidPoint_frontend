@@ -15,7 +15,7 @@ export function getMidArray(lat,long){
 export function getLatLong(array){
 
   const avg = array.map(function(pair){
-    return getMidArray(pair.lat, pair.long)
+    return getMidArray(pair.lat, pair.lng)
   })
   const count = avg.length
   let x = 0
@@ -29,7 +29,7 @@ export function getLatLong(array){
 
    let totalArray = [x,y,z]
 
-   console.log(totalArray)
+   // console.log(totalArray)
 
   const avgArray = totalArray.map(function(coord){
     return coord/count
