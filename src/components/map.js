@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import AddressBar from './addressBar'
 import RestaurantList from './restaurantList'
+import {getMidArray, getLatLong} from '../services/midpoint'
 
 const apiKey =  ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
 
@@ -10,19 +11,20 @@ export class MapContainer extends Component {
   constructor(){
     super()
     this.state = {
-      address: '',
+      // address: '',
       addressType: 'work',
       lng: 40,
       lat: 30,
-      yelpResults: []
+      yelpResults: [],
+      eventAddresses: []
     }
   }
 
-  handleAddressChange = (event) =>{
-    this.setState({
-      address: event.target.value
-    })
-  }
+  // handleAddressChange = (event) =>{
+  //   this.setState({
+  //     address: event.target.value
+  //   })
+  // }
 
   fetchCoordinates = () => {
     // console.log('hello')
@@ -79,13 +81,52 @@ export class MapContainer extends Component {
 
   }
 
-  handleAddressSubmit = (addresses) => {
-    console.log(addresses);
-    // find the midpoint
-    // this.fetchCoordinates(midpoint)
-    // this.fetchCoordinates()
+  fetchMultipleCoordinates = (address, length) => {
+    // var coordinatesArray = [],
+    //map over array of addresses received from address AddressBar
+    //make a fecth with each addresses
+    //push these coordinates to an empty array
+    //callback will be midpoint.js function to get midpoint of my array
+
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
+    .then(res => res.json())
+    .then(json =>
+
+      // console.log(json.results[0].geometry.location.lat))
+
+      this.setState({
+      eventAddresses: [...this.state.eventAddresses, {
+        lat: json.results[0].geometry.location.lat,
+        lng: json.results[0].geometry.location.lng
+      }]
+    }, () => this.state.eventAddresses.length === length ? this.calculateMidpoint() : null
+  )
+  )
   }
 
+  calculateMidpoint = () => {
+   console.log(getLatLong(this.state.eventAddresses))
+  }
+
+  handleAddressSubmit = (state) => {
+    const addresses = state.addresses
+    const length = state.addresses.length
+    // console.log(length)
+    addresses.map(address => {
+      return this.fetchMultipleCoordinates(address.address, length)
+    })
+    // console.log(addresses)
+  }
+
+//
+// const arrayOfPromises = addresses.map(function(obj) {
+//   return fetch(`localhost:30001/users/${obj.id}`).then(res=> res.json())
+// })
+//
+// Promise.all(arrayofPromises).then(res => console.log(res))
+// Promise.all([{id: 1}, {id: 2}, {id: 3}].map(function(obj) {
+// return fetch(`localhost:30001/users/${obj.id}`).then(res=> res.json())
+// })
 
 render() {
   const style = {
@@ -94,7 +135,7 @@ render() {
   }
 
 
-
+  // console.log('state in map', this.state.eventAddresses)
   // debugger
     return (
       <div>
