@@ -32,7 +32,10 @@ class AddressBar extends React.Component{
 
   render(){
     return(
-      <form onSubmit= {this.props.handleSubmit}>
+      <form onSubmit= {(e) => {
+        e.preventDefault()
+        this.props.handleSubmit(this.state)
+      }}>
       {this.state.addresses.map((address,i) =>
        (<input
         type = "text"

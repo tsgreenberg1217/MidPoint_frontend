@@ -79,11 +79,11 @@ export class MapContainer extends Component {
 
   }
 
-  handleAddressSubmit = (event) => {
-    event.preventDefault()
-    this.fetchCoordinates()
-    // this.fetchToYelp(this.state.lat,this.state.lng)
-    // console.log(event)
+  handleAddressSubmit = (addresses) => {
+    console.log(addresses);
+    // find the midpoint
+    // this.fetchCoordinates(midpoint)
+    // this.fetchCoordinates()
   }
 
 
@@ -100,8 +100,8 @@ render() {
       <div>
         <AddressBar
         handleSubmit={this.handleAddressSubmit}
-        value = {this.state.address}
-        handleChange = {this.handleAddressChange}
+        // value = {this.state.address}
+        // handleChange = {this.handleAddressChange}
         />
         <Map google={this.props.google} zoom={5}
         style={style}
