@@ -13,7 +13,6 @@ class AddressBar extends React.Component{
   }
 
   handleAddressChange = (name, index) => {
-    // make a copy of proportions object
     this.setState(prevState => {
       return {
         addresses: [
