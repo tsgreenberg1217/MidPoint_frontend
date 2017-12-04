@@ -36,10 +36,10 @@ export class MapContainer extends Component {
       lng: json.results[0].geometry.location.lng},() => this.fetchToYelp(this.state.lat,this.state.lng) ) )
   }
 
-
-.then(json=>{
-  return {lat: json.results[0].geometry.location.lat, lng: json.results[0].geometry.location.lng}}
-})
+// 
+// .then(json=>{
+//   return {lat: json.results[0].geometry.location.lat, lng: json.results[0].geometry.location.lng}}
+// })
 
   postCoordinates = () => {
     const body = {
