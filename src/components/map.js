@@ -82,12 +82,6 @@ export class MapContainer extends Component {
   }
 
   fetchMultipleCoordinates = (address, length) => {
-    // var coordinatesArray = [],
-    //map over array of addresses received from address AddressBar
-    //make a fecth with each addresses
-    //push these coordinates to an empty array
-    //callback will be midpoint.js function to get midpoint of my array
-
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
     .then(res => res.json())
     .then(json =>
@@ -105,7 +99,12 @@ export class MapContainer extends Component {
   }
 
   calculateMidpoint = () => {
-   console.log(getLatLong(this.state.eventAddresses))
+    const result = getLatLong(this.state.eventAddresses)
+
+    this.setState({
+      lat: result.lat,
+      lng: result.lng
+   }, () => this.fetchToYelp(this.state.lat,this.state.lng) )
   }
 
   handleAddressSubmit = (state) => {
@@ -115,18 +114,7 @@ export class MapContainer extends Component {
     addresses.map(address => {
       return this.fetchMultipleCoordinates(address.address, length)
     })
-    // console.log(addresses)
   }
-
-//
-// const arrayOfPromises = addresses.map(function(obj) {
-//   return fetch(`localhost:30001/users/${obj.id}`).then(res=> res.json())
-// })
-//
-// Promise.all(arrayofPromises).then(res => console.log(res))
-// Promise.all([{id: 1}, {id: 2}, {id: 3}].map(function(obj) {
-// return fetch(`localhost:30001/users/${obj.id}`).then(res=> res.json())
-// })
 
 render() {
   const style = {
