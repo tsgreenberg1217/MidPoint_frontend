@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import Map, { InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import AddressBar from './addressBar'
 import RestaurantList from './restaurantList'
 import {getMidArray, getLatLong} from '../services/midpoint'
@@ -8,38 +8,28 @@ const apiKey =  ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
 
 export class MapContainer extends Component {
 
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
-      // address: '',
       addressType: 'work',
-      lng: 40,
-      lat: 30,
+      lat: null,
+      lng: null,
       yelpResults: [],
       eventAddresses: []
     }
   }
 
-  // handleAddressChange = (event) =>{
-  //   this.setState({
-  //     address: event.target.value
-  //   })
-  // }
+  componentDidUpdate(){
+  console.log(this.state)
+  }
 
   fetchCoordinates = () => {
-    // console.log('hello')
-    // console.log(this.state.address)
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.address}&key=${apiKey}`)
     .then(res => res.json())
     .then(json => this.setState({
       lat: json.results[0].geometry.location.lat,
       lng: json.results[0].geometry.location.lng},() => this.fetchToYelp(this.state.lat,this.state.lng) ) )
   }
-
-// 
-// .then(json=>{
-//   return {lat: json.results[0].geometry.location.lat, lng: json.results[0].geometry.location.lng}}
-// })
 
   postCoordinates = () => {
     const body = {
@@ -57,12 +47,12 @@ export class MapContainer extends Component {
     }
     fetch(`http://localhost:3001/addresses`, body)
     .then(res => res.json())
-    .then(json => console.log(json))
+    // .then(json => console.log(json))
   }
 
 
   fetchToYelp(lat,lng){
-    console.log(lat)
+    // console.log(lat)
     const body = {
       method: "POST",
       headers: {
@@ -81,11 +71,11 @@ export class MapContainer extends Component {
     }, () => this.postCoordinates() ))
   }
 
-  updateMapCenter = (event) => {
 
-  }
 
   fetchMultipleCoordinates = (address, length) => {
+    console.log(this.state)
+
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
     .then(res => res.json())
     .then(json =>
@@ -103,21 +93,28 @@ export class MapContainer extends Component {
   }
 
   calculateMidpoint = () => {
+    console.log(this.state)
     const result = getLatLong(this.state.eventAddresses)
 
     this.setState({
       lat: result.lat,
-      lng: result.lng
+      lng: result.lng,
+      eventAddresses: []
    }, () => this.fetchToYelp(this.state.lat,this.state.lng) )
   }
 
   handleAddressSubmit = (state) => {
+
     const addresses = state.addresses
     const length = state.addresses.length
+    this.setState({
+      lat:null,
+      lng: null
+    },   ()=> addresses.map(address => {
+          return this.fetchMultipleCoordinates(address.address, length)
+        }))
     // console.log(length)
-    addresses.map(address => {
-      return this.fetchMultipleCoordinates(address.address, length)
-    })
+
   }
 
 render() {
@@ -126,9 +123,10 @@ render() {
     height: '50%'
   }
 
+  // if(this.props.google){
+  //   debugger
+  // }
 
-  // console.log('state in map', this.state.eventAddresses)
-  // debugger
     return (
       <div>
         <AddressBar
@@ -136,20 +134,28 @@ render() {
         // value = {this.state.address}
         // handleChange = {this.handleAddressChange}
         />
-        <Map google={this.props.google} zoom={5}
-        style={style}
-        // onReady={this.fetchCoordinates}
-        initialCenter={{
-          lat: this.state.lat,
-          lng: this.state.lng
-        }}>
 
-        <Marker onClick={this.onMarkerClick}
-        name={'Current location'} />
-        </Map>
+        {(this.state.lat && this.state.lng) ?
+          <Map
+          google={this.props.google}
+          zoom={16}
+          style={style}
+          initialCenter={{
+            lat: this.state.lat,
+            lng: this.state.lng
+          }}
+          >
+          <Marker onClick={this.onMarkerClick}
+          name={'Current location'} />
+          </Map> :
+          <p>loading map.....</p>
+        }
+
+
+
           {this.state.yelpResults[1] ?
             <RestaurantList
-              results = {this.state.yelpResults}/>: <p>loading.....</p>}
+              results = {this.state.yelpResults}/>: <p></p>}
       </div>
     );
   }

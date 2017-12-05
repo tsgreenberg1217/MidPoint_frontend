@@ -24,9 +24,8 @@ class AddressBar extends React.Component{
     });
   };
 
-
-
-  addAddress(){
+  addAddress = (event) => {
+    event.preventDefault() //why?
     this.setState({
       addresses: [...this.state.addresses, {address: ''}]
     })
@@ -34,25 +33,36 @@ class AddressBar extends React.Component{
 
   render(){
     return(
+
       <form onSubmit= {(e) => {
         e.preventDefault()
         this.props.handleSubmit(this.state)
       }}>
+
+
       {this.state.addresses.map((address,i) =>
-       (<div>
+       (<div key = {i+1}>
          <input
+        //  name = input_+1
         type = "text"
         onChange = {e => this.handleAddressChange(e.target.value, i)}
         />
         </div>
+        //dropdown menu that has my save "types"
+        //dropdown has an onChange that says does a fetch to the backend of the actual addresses
+        //event.target.value where input name =1,
       )
       )
     }
       <br/>
+
       <button onClick = {this.addAddress}>add address</button>
       <button type = 'submit'> Submit</button>
       <br/>
       </form>
+
+
+
     )
 
   }
