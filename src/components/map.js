@@ -14,7 +14,6 @@ export class MapContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      addressType: 'work',
       lat: 40.748541,
       lng: -73.985763,
       yelpResults: [],
@@ -22,7 +21,21 @@ export class MapContainer extends Component {
       newAddress: '',
       addressType: ''
     }
+    this.saveAddressSubmit = this.saveAddressSubmit.bind(this)
+
   }
+
+  componentDidUpdate(){
+    debugger
+  }
+
+
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
 
 
   fetchCoordinates = () => {
@@ -34,8 +47,6 @@ export class MapContainer extends Component {
   }
 
   postCoordinates = () => {
-    // debugger
-    // console.log('the yelp results are', this.state.yelpResults)
     const body = {
       method: "POST",
       headers: {
@@ -76,7 +87,6 @@ export class MapContainer extends Component {
 
 
   fetchMultipleCoordinates = (address, length) => {
-    // console.log(this.state)
 
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
     .then(res => res.json())
@@ -112,6 +122,23 @@ export class MapContainer extends Component {
 
   }
 
+  saveAddressSubmit(e){
+    e.preventDefault()
+    const body = {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: this.state.newAddress,
+        addressType: this.state.addressType
+      })
+    }
+    fetch(`http://localhost:3001/api/v1/addresses`, body)
+    .then(res => res.json()).then(json => console.log(json))
+  }
+
 render() {
   const style = {
     display: 'block',
@@ -122,7 +149,7 @@ render() {
     return (
       <div>
 
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.saveAddressSubmit}>
         <Form.Group widths="12">
           <Form.Input
             name="newAddress"

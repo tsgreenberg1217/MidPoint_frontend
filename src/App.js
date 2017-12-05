@@ -52,14 +52,18 @@ class App extends React.Component {
          }
        }
 
-       componentDidMount() {
+       componentDidMount = ( )=> {
          fetch(`${url}users`)
            .then(res => res.json())
            .then(json =>
              this.setState({
                users: json
-             })
+             }, this.catchThis)
            );
+       }
+
+       catchThis = () =>{
+         debugger
        }
 
   render() {
@@ -82,7 +86,7 @@ class App extends React.Component {
 
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/map" component={MapContainer} />
+        <Route exact path="/map" render={() => <MapContainer user = {this.state}/>}/>
         <loginNavBar />
       </div>
     );

@@ -28,7 +28,7 @@ class Signup extends React.Component {
       method: "POST",
       headers,
       body: JSON.stringify(body)
-    }).then(() => this.props.history.push("/"))
+    }).then(() => this.props.history.push("/map"))
     ;
   };
 
@@ -65,7 +65,7 @@ class Signup extends React.Component {
           </Form.Group>
           <Form.Button>Submit</Form.Button>
         </Form>
-        
+
       </div>
     );
   }
