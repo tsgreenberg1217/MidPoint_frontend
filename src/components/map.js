@@ -105,7 +105,7 @@ export class MapContainer extends Component {
     this.setState({
       lat:null,
       lng: null
-        }, ()=> addresses.map(address => { return this.fetchMultipleCoordinates(address.address, length) }))
+    }, ()=> addresses.map(address => { return this.fetchMultipleCoordinates(address.address, length) }))
 
   }
 
