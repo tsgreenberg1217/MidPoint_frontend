@@ -15,7 +15,7 @@ class AddressBar extends React.Component{
   }
 
   handleMainChange = (name) => {
-    console.log(this.state.addresses)
+    // console.log(this.state.addresses)
     this.setState({
       addresses: [{address: name}, ...this.state.addresses.slice(1)]
     })
@@ -23,7 +23,7 @@ class AddressBar extends React.Component{
 
   handleAuxAddressChange = (name, index) => {
     index = index+1
-    console.log(this.state.addresses, index)
+    // console.log(this.state.addresses, index)
     this.setState(prevState => {
       return {
         addresses: [

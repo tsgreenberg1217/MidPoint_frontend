@@ -32,21 +32,23 @@ export class MapContainer extends Component {
   }
 
   postCoordinates = () => {
-    const body = {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        address: this.state.address,
-        lat: this.state.lat,
-        lng: this.state.lng,
-        addressType: this.state.addressType
-      })
-    }
-    fetch(`http://localhost:3001/addresses`, body)
-    .then(res => res.json())
+    // debugger
+    console.log('the yelp results are', this.state.yelpResults)
+    // const body = {
+    //   method: "POST",
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     address: this.state.address,
+    //     lat: this.state.lat,
+    //     lng: this.state.lng,
+    //     addressType: this.state.addressType
+    //   })
+    // }
+    // fetch(`http://localhost:3001/addresses`, body)
+    // .then(res => res.json())
   }
 
 
@@ -65,14 +67,14 @@ export class MapContainer extends Component {
 
     fetch(`http://localhost:3001/adapters`, body)
     .then(res => res.json()).then(json => this.setState({
-      yelpResults: json.businesses
+      yelpResults: json.businesses.sort(function(a,b){return b.rating-a.rating}).slice(0,6)
     }, () => this.postCoordinates() ))
   }
 
 
 
   fetchMultipleCoordinates = (address, length) => {
-    console.log(this.state)
+    // console.log(this.state)
 
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
     .then(res => res.json())
@@ -89,7 +91,6 @@ export class MapContainer extends Component {
   }
 
   calculateMidpoint = () => {
-    console.log(this.state)
     const result = getLatLong(this.state.eventAddresses)
 
     this.setState({
@@ -105,7 +106,7 @@ export class MapContainer extends Component {
     this.setState({
       lat:null,
       lng: null
-    }, ()=> addresses.map(address => { return this.fetchMultipleCoordinates(address.address, length) }))
+      }, ()=> addresses.map(address => { return this.fetchMultipleCoordinates(address.address, length) }))
 
   }
 
@@ -115,10 +116,6 @@ render() {
     width: '50%',
     height: '50%'
   }
-
-  // if(this.props.google){
-  //   debugger
-  // }
 
     return (
       <div>
@@ -136,8 +133,11 @@ render() {
             lng: this.state.lng
           }}
           >
-          <Marker onClick={this.onMarkerClick}
-          name={'Current location'} />
+          {this.state.yelpResults.map(result => <Marker position={
+            {
+              lat: result.coordinates.latitude,
+              lng: result.coordinates.longitude
+            }}/>)}
           </Map> :
           <p>loading map.....</p>
         }
