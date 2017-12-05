@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Map, { InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import AddressBar from './addressBar'
 import RestaurantList from './restaurantList'
+import { Form } from "semantic-ui-react";
 import {getMidArray, getLatLong} from '../services/midpoint'
 
 const url =  "http://localhost:3001/api/v1/"
@@ -18,7 +19,8 @@ export class MapContainer extends Component {
       lng: -73.985763,
       yelpResults: [],
       eventAddresses: [],
-
+      newAddress: '',
+      addressType: ''
     }
   }
 
@@ -120,6 +122,25 @@ render() {
     return (
       <div>
 
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Group widths="12">
+          <Form.Input
+            name="newAddress"
+            onChange={this.handleChange}
+            label="New Address"
+            placeholder="new address"
+          />
+          <Form.Input
+            name="addressType"
+            onChange={this.handleChange}
+            label="Address Type"
+            type="text"
+            placeholder="type"
+          />
+          <Form.Button>Submit</Form.Button>
+        </Form.Group>
+
+      </Form>
 
         <AddressBar
         handleSubmit={this.handleAddressSubmit}

@@ -82,8 +82,8 @@ class App extends React.Component {
 
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/map" component={MapContainer} />
         <loginNavBar />
-      <MapContainer/>
       </div>
     );
   }

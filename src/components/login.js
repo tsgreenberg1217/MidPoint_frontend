@@ -45,12 +45,17 @@ class Login extends React.Component {
       .then(res => res.json())
       .then(json => {
         if (!json.error) {
-          localStorage.setItem("token", json.jwt), ( ) => this.quickGet();
+          localStorage.setItem("token", json.jwt);
+          this.goToMap()
         }
       }
     )
     ;
   };
+
+  goToMap = () => {
+    this.props.history.push("/map")
+  }
 
 
   quickGet = (e) => {
@@ -64,7 +69,7 @@ class Login extends React.Component {
     })
       .then(res => res.json())
       .then(json => {
-      
+
         if (!json.error) {
           localStorage.setItem("token", json.jwt);
         }
@@ -94,7 +99,6 @@ class Login extends React.Component {
               placeholder="Password"
             />
           </Form.Group>
-
           <Form.Button>Submit</Form.Button>
         </Form>
       </div>
