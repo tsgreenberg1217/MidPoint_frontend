@@ -100,7 +100,6 @@ export class MapContainer extends Component {
   }
 
   handleAddressSubmit = (state) => {
-
     const addresses = state.addresses
     const length = state.addresses.length
     this.setState({

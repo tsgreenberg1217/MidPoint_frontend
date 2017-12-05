@@ -10,11 +10,20 @@ class AddressBar extends React.Component{
     this.state= {
       addresses: [{address: ''},{address: ''}]
     }
-    this.handleAddressChange = this.handleAddressChange.bind(this)
+    this.handleAuxAddressChange = this.handleAuxAddressChange.bind(this)
     this.addAddress = this.addAddress.bind(this)
   }
 
-  handleAddressChange = (name, index) => {
+  handleMainChange = (name) => {
+    console.log(this.state.addresses)
+    this.setState({
+      addresses: [{address: name}, ...this.state.addresses.slice(1)]
+    })
+  }
+
+  handleAuxAddressChange = (name, index) => {
+    index = index+1
+    console.log(this.state.addresses, index)
     this.setState(prevState => {
       return {
         addresses: [
@@ -44,14 +53,15 @@ class AddressBar extends React.Component{
       <div>
         <Input
           list='languages'
-          placeholder='Your address...' />
+          placeholder='Your address...'
+          onChange = {e => this.handleMainChange(e.target.value)}/>
         <datalist id='languages'>
           <option value='Home' />
           <option value='Work' />
         </datalist>
       </div>
 
-      {this.state.addresses.map((address,i) =>
+      {this.state.addresses.slice(1).map((address,i) =>
        (<div key = {i+1}>
          <Input
             style = {{width: '22%'}}
@@ -59,7 +69,7 @@ class AddressBar extends React.Component{
             labelPosition='left corner'
             placeholder='enter address...'
             type = "text"
-            onChange = {e => this.handleAddressChange(e.target.value, i)}
+            onChange = {e => this.handleAuxAddressChange(e.target.value, i)}
           />
         </div>
         //dropdown menu that has my save "types"
