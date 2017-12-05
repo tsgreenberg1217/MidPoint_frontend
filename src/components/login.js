@@ -31,11 +31,7 @@ class Login extends React.Component {
 
 
   handleSubmit = (e) => {
-    e.preventDefault()
-    const headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    };
+    e.preventDefault();
 
     const body = this.state;
 

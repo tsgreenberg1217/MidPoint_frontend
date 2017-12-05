@@ -5,8 +5,6 @@ import RestaurantList from './restaurantList'
 import {getMidArray, getLatLong} from '../services/midpoint'
 
 
-const url = "http://localhost:3001/api/v1/";
-
 const apiKey =  ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
 
 export class MapContainer extends Component {

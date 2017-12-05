@@ -3,7 +3,11 @@ import { withRouter, Route } from "react-router-dom";
 import MapContainer from './components/map'
 import Signup from './components/signup'
 import Login from './components/login'
+<<<<<<< HEAD
 import Loginnavbar from './components/loginNavBar'
+=======
+import Loginbar from './components/loginNavbar'
+>>>>>>> 95365868cb277020f45f6fb5ac07a4bf47c7b263
 import Navbar from './components/navbar'
 
 const url =  "http://localhost:3001/api/v1/";
@@ -34,6 +38,7 @@ class App extends React.Component {
 
        componentWillMount() {
          const token = localStorage.getItem("token");
+
          if (token) {
            fetch(`${url}current_user`, {
              headers: {
@@ -72,7 +77,7 @@ class App extends React.Component {
             newChallengeLink={this.newChallengeLink}
           />
         ) : (
-          <Loginnavbar
+          <Loginbar
             location={this.props.location.pathname}
             signup={this.signup}
             backToLogin={this.backToLogin}
