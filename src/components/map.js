@@ -12,8 +12,8 @@ export class MapContainer extends Component {
     super(props)
     this.state = {
       addressType: 'work',
-      lat: null,
-      lng: null,
+      lat: 40.748541,
+      lng: -73.985763,
       yelpResults: [],
       eventAddresses: []
     }
@@ -47,12 +47,10 @@ export class MapContainer extends Component {
     }
     fetch(`http://localhost:3001/addresses`, body)
     .then(res => res.json())
-    // .then(json => console.log(json))
   }
 
 
   fetchToYelp(lat,lng){
-    // console.log(lat)
     const body = {
       method: "POST",
       headers: {
@@ -79,8 +77,6 @@ export class MapContainer extends Component {
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
     .then(res => res.json())
     .then(json =>
-
-      // console.log(json.results[0].geometry.location.lat))
 
       this.setState({
       eventAddresses: [...this.state.eventAddresses, {
@@ -110,10 +106,7 @@ export class MapContainer extends Component {
     this.setState({
       lat:null,
       lng: null
-    },   ()=> addresses.map(address => {
-          return this.fetchMultipleCoordinates(address.address, length)
-        }))
-    // console.log(length)
+        }, ()=> addresses.map(address => { return this.fetchMultipleCoordinates(address.address, length) }))
 
   }
 
@@ -131,8 +124,6 @@ render() {
       <div>
         <AddressBar
         handleSubmit={this.handleAddressSubmit}
-        // value = {this.state.address}
-        // handleChange = {this.handleAddressChange}
         />
 
         {(this.state.lat && this.state.lng) ?

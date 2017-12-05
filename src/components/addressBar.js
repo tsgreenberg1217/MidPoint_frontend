@@ -1,4 +1,6 @@
 import React from 'react'
+import { Button, Icon,Input } from 'semantic-ui-react'
+
 
 
 
@@ -39,14 +41,26 @@ class AddressBar extends React.Component{
         this.props.handleSubmit(this.state)
       }}>
 
+      <div>
+        <Input
+          list='languages'
+          placeholder='Your address...' />
+        <datalist id='languages'>
+          <option value='Home' />
+          <option value='Work' />
+        </datalist>
+      </div>
 
       {this.state.addresses.map((address,i) =>
        (<div key = {i+1}>
-         <input
-        //  name = input_+1
-        type = "text"
-        onChange = {e => this.handleAddressChange(e.target.value, i)}
-        />
+         <Input
+            style = {{width: '22%'}}
+            label={{ icon: 'asterisk' }}
+            labelPosition='left corner'
+            placeholder='enter address...'
+            type = "text"
+            onChange = {e => this.handleAddressChange(e.target.value, i)}
+          />
         </div>
         //dropdown menu that has my save "types"
         //dropdown has an onChange that says does a fetch to the backend of the actual addresses
@@ -55,9 +69,14 @@ class AddressBar extends React.Component{
       )
     }
       <br/>
-
-      <button onClick = {this.addAddress}>add address</button>
-      <button type = 'submit'> Submit</button>
+      <Button animated
+      onClick = {this.addAddress}>
+        <Button.Content visible>Add Address</Button.Content>
+        <Button.Content hidden>
+          <Icon name='add' />
+        </Button.Content>
+      </Button>
+      <Button primary>Submit</Button>
       <br/>
       </form>
 
