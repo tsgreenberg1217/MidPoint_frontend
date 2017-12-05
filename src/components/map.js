@@ -112,6 +112,7 @@ export class MapContainer extends Component {
 
 render() {
   const style = {
+    display: 'block',
     width: '50%',
     height: '50%'
   }

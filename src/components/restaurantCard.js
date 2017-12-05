@@ -16,7 +16,7 @@ const RestaurantCard = (props) => {
           </Item.Meta>
           <Item.Description>{props.location}</Item.Description>
           <Item.Extra>
-            <Button primary floated='right'>
+            <Button primary floated='left'>
               Lets do it!
               <Icon name='right chevron' />
             </Button>
