@@ -4,6 +4,9 @@ import AddressBar from './addressBar'
 import RestaurantList from './restaurantList'
 import {getMidArray, getLatLong} from '../services/midpoint'
 
+
+const url = "http://localhost:3001/api/v1/";
+
 const apiKey =  ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
 
 export class MapContainer extends Component {
@@ -15,13 +18,11 @@ export class MapContainer extends Component {
       lat: 40.748541,
       lng: -73.985763,
       yelpResults: [],
-      eventAddresses: []
+      eventAddresses: [],
+
     }
   }
 
-  componentDidUpdate(){
-  console.log(this.state)
-  }
 
   fetchCoordinates = () => {
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.address}&key=${apiKey}`)
@@ -119,6 +120,8 @@ render() {
 
     return (
       <div>
+      
+
         <AddressBar
         handleSubmit={this.handleAddressSubmit}
         />
