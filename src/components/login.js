@@ -39,17 +39,37 @@ class Login extends React.Component {
       method: "POST",
       headers: {'content-type': 'application/json',
       'accept': 'application/json',
-      'Authorization': localStorage.getItem('jwt')},
+      'Authorization': `Token ${localStorage.getItem('jwt')}`},
       body: JSON.stringify(body)
     })
       .then(res => res.json())
       .then(json => {
         if (!json.error) {
+          localStorage.setItem("token", json.jwt), ( ) => this.quickGet();
+        }
+      }
+    )
+    ;
+  };
+
+
+  quickGet = (e) => {
+    const body = this.state;
+
+    fetch(`${url}current_user`, {
+      headers: {'content-type': 'application/json',
+      'accept': 'application/json',
+      'Authorization': localStorage.getItem('jwt')},
+      body: JSON.stringify(body)
+    })
+      .then(res => res.json())
+      .then(json => {
+      
+        if (!json.error) {
           localStorage.setItem("token", json.jwt);
         }
       });
   };
-
 
 
   render() {
