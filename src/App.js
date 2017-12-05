@@ -40,7 +40,7 @@ class App extends React.Component {
              headers: {
                "content-type": "application/json",
                accept: "application/json",
-               Authorization: localStorage.getItem("token")
+               Authorization: `Token ${localStorage.getItem('jwt')}`
              }
            })
              .then(res => res.json())
