@@ -7,14 +7,14 @@ class Login extends React.Component {
     super();
 
     this.state = {
-      name: "",
+      username: "",
       password: ""
     };
   }
 
   handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.username]: e.target.value
     });
   };
 
@@ -45,10 +45,10 @@ class Login extends React.Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths="12">
             <Form.Input
-              name="name"
+              name="username"
               onChange={this.handleChange}
-              label="name"
-              placeholder="name"
+              label="Username"
+              placeholder="username"
             />
           </Form.Group>
           <Form.Group widths="12">
@@ -60,6 +60,7 @@ class Login extends React.Component {
               placeholder="Password"
             />
           </Form.Group>
+
           <Form.Button>Submit</Form.Button>
         </Form>
       </div>

@@ -3,8 +3,9 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import AddressBar from './addressBar'
 import RestaurantList from './restaurantList'
 import {getMidArray, getLatLong} from '../services/midpoint'
-import Signup from './signup'
-import Login from './login'
+
+
+const url = "http://localhost:3001/api/v1/";
 
 const apiKey =  ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
 
@@ -18,15 +19,10 @@ export class MapContainer extends Component {
       lng: 40,
       lat: 30,
       yelpResults: [],
-      eventAddresses: []
+      eventAddresses: [],
+
     }
   }
-
-  // handleAddressChange = (event) =>{
-  //   this.setState({
-  //     address: event.target.value
-  //   })
-  // }
 
   fetchCoordinates = () => {
     // console.log('hello')
@@ -116,7 +112,7 @@ export class MapContainer extends Component {
     addresses.map(address => {
       return this.fetchMultipleCoordinates(address.address, length)
     })
-  }
+    }
 
 render() {
   const style = {
@@ -129,6 +125,8 @@ render() {
   // debugger
     return (
       <div>
+      
+
         <AddressBar
         handleSubmit={this.handleAddressSubmit}
         // value = {this.state.address}

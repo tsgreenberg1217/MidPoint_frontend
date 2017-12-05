@@ -7,7 +7,7 @@ class Signup extends React.Component {
     super();
 
     this.state = {
-      name: "",
+      username: "",
       password: ""
     };
   }
@@ -38,10 +38,10 @@ class Signup extends React.Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths="12">
             <Form.Input
-              name="name"
+              name="username"
               onChange={this.handleChange}
-              label="name"
-              placeholder="name"
+              label="Username"
+              placeholder="username"
             />
           </Form.Group>
           <Form.Group widths="12">
@@ -49,7 +49,17 @@ class Signup extends React.Component {
               name="password"
               onChange={this.handleChange}
               label="Password"
+              type='password'
               placeholder="Password"
+            />
+          </Form.Group>
+          <Form.Group widths="12">
+            <Form.Input
+              name="email"
+              onChange={this.handleChange}
+              label="Email"
+              type="text"
+              placeholder="Email"
             />
           </Form.Group>
           <Form.Button>Submit</Form.Button>
