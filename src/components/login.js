@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Form } from "semantic-ui-react";
 const url = "http://localhost:3001/api/v1/";
 
@@ -12,31 +13,48 @@ class Login extends React.Component {
     };
   }
 
+
   handleChange = e => {
     this.setState({
-      [e.target.username]: e.target.value
+      [e.target.name]: e.target.value
     });
   };
 
-  handleSubmit = () => {
+  static currentUser () {
+    return fetch(`${url}/current_user`, {
+      headers: {'content-type': 'application/json',
+      'accept': 'application/json',
+      'Authorization': localStorage.getItem('jwt')}
+    }).then(res => res.json())
+  }
+
+
+
+  handleSubmit = (e) => {
+    e.preventDefault()
     const headers = {
       Accept: "application/json",
       "Content-Type": "application/json"
     };
+
     const body = this.state;
+
     fetch(`${url}auth`, {
       method: "POST",
-      headers,
+      headers: {'content-type': 'application/json',
+      'accept': 'application/json',
+      'Authorization': localStorage.getItem('jwt')},
       body: JSON.stringify(body)
     })
       .then(res => res.json())
       .then(json => {
         if (!json.error) {
           localStorage.setItem("token", json.jwt);
-          this.props.history.push("/challenges");
         }
       });
   };
+
+
 
   render() {
     return (

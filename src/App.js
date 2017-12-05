@@ -5,7 +5,7 @@ import Signup from './components/signup'
 import Login from './components/login'
 import LoginNavbar from './components/loginNavbar'
 import Navbar from './components/navbar'
-const baseUrl = 'http://localhost:3000/api/v1'
+
 const url =  "http://localhost:3001/api/v1/";
 
 
