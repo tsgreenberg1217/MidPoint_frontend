@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
 
-const LoginNavbar = props => {
+const Loginnavbar = props => {
   return (
     <Menu>
       {props.location === "/login" ? (
@@ -17,4 +17,4 @@ const LoginNavbar = props => {
   );
 };
 
-export default LoginNavbar;
+export default Loginnavbar;
