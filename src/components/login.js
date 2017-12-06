@@ -4,15 +4,14 @@ import { Form } from "semantic-ui-react";
 const url = "http://localhost:3001/api/v1/";
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       username: "",
       password: ""
     };
-
-    // this.props.handleSubmit = this.props.handleSubmit.bind(this)
+    this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
   }
 
 
@@ -32,9 +31,8 @@ class Login extends React.Component {
 
 
 
-  handleSubmit = (e) => {
+  handleLoginSubmit = (e) => {
     e.preventDefault();
-    debugger
     const body = this.state;
 
     fetch(`${url}auth`, {
@@ -47,9 +45,9 @@ class Login extends React.Component {
       .then(res => res.json())
       .then(json => {
         if (!json.error) {
-
+          console.log(this.props.handleLogin);
           localStorage.setItem("token", json.jwt);
-          // this.props.handleLogin(json)
+          this.props.handleLogin(json)
 
           // this.goToMap()
           //
@@ -59,9 +57,7 @@ class Login extends React.Component {
     ;
   };
 
-  goToMap = () => {
-    this.props.history.push("/map")
-  }
+
 
 
   quickGet = (e) => {
@@ -90,7 +86,7 @@ class Login extends React.Component {
     return (
       <div>
         <h2>Log in</h2>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleLoginSubmit}>
           <Form.Group widths="12">
             <Form.Input
               name="username"

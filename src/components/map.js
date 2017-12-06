@@ -142,6 +142,7 @@ export class MapContainer extends Component {
   }
 
 render() {
+  debugger
   const style = {
     display: 'block',
     width: '50%',

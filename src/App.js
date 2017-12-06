@@ -13,16 +13,24 @@ class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      users: [],
+      // users: [],
       currentUser: {},
       user: {},
       login: false
     }
+    this.handleLogin = this.handleLogin.bind(this)
+
   }
 
   handleLogin = (userData) => {
+
     localStorage.setItem('token', userData.jwt)
-    this.setState({user: {username: userData.username, id: userData.id}})
+    this.setState({user: {username: userData.username}, login: true}, this.goToMap)
+  }
+
+  goToMap = () => {
+    // debugger
+    this.props.history.push("/map")
   }
 
       logout = () => {
@@ -43,18 +51,18 @@ class App extends React.Component {
        }
 
        componentDidMount = () => {
-         const token = localStorage.getItem("token");
 
+         const token = localStorage.getItem("token");
          if (token) {
            fetch(`${url}current_user`, {
              headers: {
-               "content-type": "application/json",
-               accept: "application/json",
-               Authorization: `Token ${localStorage.getItem('jwt')}`
+               "Content-Type": "application/json",
+               Accept: "application/json",
+               Authorization: `Token ${token}`
              }
            })
            .then(res => res.json())
-           .then(json => this.setState({ currentUser: json }));
+           .then(json => this.setState({ user: json, login:true }, this.catchThis));
          } else {
            if (!window.location.href.includes("signup")) {
              this.props.history.push("/login");
@@ -69,9 +77,8 @@ class App extends React.Component {
         //    );
        }
 
-      //  catchThis = () =>{
-      //    debugger
-      //  }
+       catchThis = () =>{
+       }
 
   render() {
     return (
@@ -95,7 +102,7 @@ class App extends React.Component {
         )}
 
         <Route exact path="/signup" component={Signup} />
-        <Route exact path="/map" render={() => <Login handleLogin = {this.handleLogin}/>}/>
+        <Route exact path="/login" render={() => <Login handleLogin = {this.handleLogin}/>}/>
         <Route exact path="/map" render={() => <MapContainer user = {this.state}/>}/>
         <loginNavBar />
       </div>
