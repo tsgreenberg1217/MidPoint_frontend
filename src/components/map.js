@@ -24,7 +24,6 @@ export class MapContainer extends Component {
       user: {},
       term: 'restaurant'
     }
-
     this.saveAddressSubmit = this.saveAddressSubmit.bind(this)
   }
 
@@ -35,7 +34,6 @@ export class MapContainer extends Component {
   }
 
 
-
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -43,13 +41,6 @@ export class MapContainer extends Component {
   };
 
 
-  // fetchCoordinates = () => {
-  //   fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.address}&key=${apiKey}`)
-  //   .then(res => res.json())
-  //   .then(json => this.setState({
-  //     lat: json.results[0].geometry.location.lat,
-  //     lng: json.results[0].geometry.location.lng},() => this.fetchToYelp(this.state.lat,this.state.lng,this.state.term) ) )
-  // }
 
   postCoordinates = () => {
     const body = {
@@ -71,6 +62,7 @@ export class MapContainer extends Component {
 
   fetchToYelp(lat,lng,term){
 
+  fetchToYelp(lat,lng){
     const body = {
       method: "POST",
       headers: {
@@ -143,6 +135,7 @@ export class MapContainer extends Component {
   }
 
 render() {
+  // debugger
   const style = {
     display: 'block',
     width: '50%',

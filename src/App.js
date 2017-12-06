@@ -13,17 +13,22 @@ class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      users: [],
-      currentUser: {},
+      // users: [],
       user: {},
       login: false
     }
+    this.handleLogin = this.handleLogin.bind(this)
+
   }
 
   handleLogin = (userData) => {
-    localStorage.setItem('token', userData.jwt)
     debugger
-    this.setState({user: {username: userData.username, id: userData.id}})
+    localStorage.setItem('token', userData.jwt)
+    this.setState({user: {username: userData.username}, login: true}, this.goToMap)
+  }
+
+  goToMap = () => {
+    this.props.history.push("/map")
   }
 
       logout = () => {
@@ -44,45 +49,30 @@ class App extends React.Component {
        }
 
        componentDidMount = () => {
-         const token = localStorage.getItem("token");
+         debugger
 
+         const token = localStorage.getItem("token");
          if (token) {
            fetch(`${url}current_user`, {
              headers: {
-               "content-type": "application/json",
-               accept: "application/json",
-               Authorization: `Token ${localStorage.getItem('jwt')}`
+               "Content-Type": "application/json",
+               Accept: "application/json",
+               Authorization: `Token ${token}`
              }
            })
            .then(res => res.json())
-           .then(json => this.setState({ currentUser: json }));
+           .then(json => this.setState( () => {
+            //  this.goToMap()
+             return { user: json, login:true }
+
+           }));
          } else {
            if (!window.location.href.includes("signup")) {
              this.props.history.push("/login");
            }
          }
-        //  fetch(`${url}users`)
-        //    .then(res => res.json())
-        //    .then(json =>
-        //      this.setState({
-        //        users: json
-        //      })
-        //    );
        }
 
-       componentDidMount = ( )=> {
-         fetch(`${url}users`)
-           .then(res => res.json())
-           .then(json =>
-             this.setState({
-               users: json
-             }, this.catchThis)
-           );
-       }
-
-       catchThis = () =>{
-
-       }
 
   render() {
     return (
