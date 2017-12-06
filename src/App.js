@@ -14,7 +14,6 @@ class App extends React.Component {
     super()
     this.state = {
       // users: [],
-      currentUser: {},
       user: {},
       login: false
     }
@@ -23,13 +22,12 @@ class App extends React.Component {
   }
 
   handleLogin = (userData) => {
-
+    debugger
     localStorage.setItem('token', userData.jwt)
     this.setState({user: {username: userData.username}, login: true}, this.goToMap)
   }
 
   goToMap = () => {
-    // debugger
     this.props.history.push("/map")
   }
 
@@ -51,6 +49,7 @@ class App extends React.Component {
        }
 
        componentDidMount = () => {
+         debugger
 
          const token = localStorage.getItem("token");
          if (token) {
@@ -62,23 +61,21 @@ class App extends React.Component {
              }
            })
            .then(res => res.json())
-           .then(json => this.setState({ user: json, login:true }, this.catchThis));
+           .then(json => this.setState( () => {
+            //  this.goToMap()
+             return { user: json, login:true }
+
+           }));
          } else {
            if (!window.location.href.includes("signup")) {
              this.props.history.push("/login");
            }
          }
-        //  fetch(`${url}users`)
-        //    .then(res => res.json())
-        //    .then(json =>
-        //      this.setState({
-        //        users: json
-        //      })
-        //    );
        }
-
-       catchThis = () =>{
-       }
+       //
+      //  catchThis = () =>{
+      //    debugger
+      //  }
 
   render() {
     return (

@@ -23,15 +23,14 @@ export class MapContainer extends Component {
       user: {}
     }
     this.saveAddressSubmit = this.saveAddressSubmit.bind(this)
-
   }
 
   componentDidUpdate(){
   }
 
-
-
-
+  componentDidMount = () => {
+    debugger
+  }
 
   handleChange = e => {
     this.setState({
@@ -142,7 +141,7 @@ export class MapContainer extends Component {
   }
 
 render() {
-  debugger
+  // debugger
   const style = {
     display: 'block',
     width: '50%',
