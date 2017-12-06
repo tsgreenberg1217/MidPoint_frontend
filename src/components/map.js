@@ -19,15 +19,17 @@ export class MapContainer extends Component {
       yelpResults: [],
       eventAddresses: [],
       newAddress: '',
-      addressType: ''
+      addressType: '',
+      user: {}
     }
     this.saveAddressSubmit = this.saveAddressSubmit.bind(this)
 
   }
 
   componentDidUpdate(){
-    debugger
   }
+
+
 
 
 

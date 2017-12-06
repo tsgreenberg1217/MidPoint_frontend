@@ -14,8 +14,15 @@ class App extends React.Component {
     super()
     this.state = {
       users: [],
-      currentUser: {}
+      currentUser: {},
+      user: {},
+      login: false
     }
+  }
+
+  handleLogin = (userData) => {
+    localStorage.setItem('token', userData.jwt)
+    this.setState({user: {username: userData.username, id: userData.id}})
   }
 
       logout = () => {
@@ -33,6 +40,9 @@ class App extends React.Component {
        };
 
        componentWillMount() {
+       }
+
+       componentDidMount = () => {
          const token = localStorage.getItem("token");
 
          if (token) {
@@ -43,28 +53,25 @@ class App extends React.Component {
                Authorization: `Token ${localStorage.getItem('jwt')}`
              }
            })
-             .then(res => res.json())
-             .then(json => this.setState({ currentUser: json }));
+           .then(res => res.json())
+           .then(json => this.setState({ currentUser: json }));
          } else {
            if (!window.location.href.includes("signup")) {
              this.props.history.push("/login");
            }
          }
+        //  fetch(`${url}users`)
+        //    .then(res => res.json())
+        //    .then(json =>
+        //      this.setState({
+        //        users: json
+        //      })
+        //    );
        }
 
-       componentDidMount = ( )=> {
-         fetch(`${url}users`)
-           .then(res => res.json())
-           .then(json =>
-             this.setState({
-               users: json
-             }, this.catchThis)
-           );
-       }
-
-       catchThis = () =>{
-         debugger
-       }
+      //  catchThis = () =>{
+      //    debugger
+      //  }
 
   render() {
     return (
@@ -77,15 +84,18 @@ class App extends React.Component {
             newChallengeLink={this.newChallengeLink}
           />
         ) : (
+          <div>
           <Loginbar
+            handleLogin = {this.handleLogin}
             location={this.props.location.pathname}
             signup={this.signup}
             backToLogin={this.backToLogin}
           />
+          </div>
         )}
 
         <Route exact path="/signup" component={Signup} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/map" render={() => <Login handleLogin = {this.handleLogin}/>}/>
         <Route exact path="/map" render={() => <MapContainer user = {this.state}/>}/>
         <loginNavBar />
       </div>

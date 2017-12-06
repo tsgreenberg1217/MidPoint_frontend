@@ -11,6 +11,8 @@ class Login extends React.Component {
       username: "",
       password: ""
     };
+
+    // this.props.handleSubmit = this.props.handleSubmit.bind(this)
   }
 
 
@@ -32,7 +34,7 @@ class Login extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-
+    debugger
     const body = this.state;
 
     fetch(`${url}auth`, {
@@ -45,8 +47,12 @@ class Login extends React.Component {
       .then(res => res.json())
       .then(json => {
         if (!json.error) {
+
           localStorage.setItem("token", json.jwt);
-          this.goToMap()
+          // this.props.handleLogin(json)
+
+          // this.goToMap()
+          //
         }
       }
     )
@@ -72,6 +78,9 @@ class Login extends React.Component {
 
         if (!json.error) {
           localStorage.setItem("token", json.jwt);
+        }
+        else{
+
         }
       });
   };
