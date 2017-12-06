@@ -39,13 +39,13 @@ export class MapContainer extends Component {
   };
 
 
-  fetchCoordinates = () => {
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.address}&key=${apiKey}`)
-    .then(res => res.json())
-    .then(json => this.setState({
-      lat: json.results[0].geometry.location.lat,
-      lng: json.results[0].geometry.location.lng},() => this.fetchToYelp(this.state.lat,this.state.lng) ) )
-  }
+  // fetchCoordinates = () => {
+  //   fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.address}&key=${apiKey}`)
+  //   .then(res => res.json())
+  //   .then(json => this.setState({
+  //     lat: json.results[0].geometry.location.lat,
+  //     lng: json.results[0].geometry.location.lng},() => this.fetchToYelp(this.state.lat,this.state.lng) ) )
+  // }
 
   postCoordinates = () => {
     const body = {
@@ -67,6 +67,7 @@ export class MapContainer extends Component {
 
 
   fetchToYelp(lat,lng){
+    debugger
     const body = {
       method: "POST",
       headers: {
