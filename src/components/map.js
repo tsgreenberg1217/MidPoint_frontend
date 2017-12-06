@@ -8,6 +8,7 @@ import {getMidArray, getLatLong} from '../services/midpoint'
 const url =  "http://localhost:3001/api/v1/"
 
 const apiKey =  ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
+const typeOptions = ['restaurant', 'bar', 'museum']
 
 export class MapContainer extends Component {
 
@@ -19,14 +20,15 @@ export class MapContainer extends Component {
       yelpResults: [],
       eventAddresses: [],
       newAddress: '',
-      addressType: ''
+      addressType: '',
+      meetupType: 'restaurant',
     }
     this.saveAddressSubmit = this.saveAddressSubmit.bind(this)
 
   }
 
   componentDidUpdate(){
-    debugger
+
   }
 
 
