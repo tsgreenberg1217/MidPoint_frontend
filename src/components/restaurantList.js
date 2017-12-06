@@ -2,8 +2,6 @@ import React from 'react'
 import RestaurantCard from './restaurantCard'
 
 const RestaurantList = (props) => {
-  console.log('list is mounted')
-
   const AllRestaurants = props.results.map(rest =>{
       return <RestaurantCard
       key = {rest.id}

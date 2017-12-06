@@ -72,10 +72,7 @@ class App extends React.Component {
            }
          }
        }
-       //
-      //  catchThis = () =>{
-      //    debugger
-      //  }
+
 
   render() {
     return (

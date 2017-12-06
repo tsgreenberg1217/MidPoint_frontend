@@ -11,6 +11,7 @@ class Login extends React.Component {
       username: "",
       password: ""
     };
+
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
   }
 
@@ -28,6 +29,7 @@ class Login extends React.Component {
       'Authorization': localStorage.getItem('jwt')}
     }).then(res => res.json())
   }
+
 
 
 

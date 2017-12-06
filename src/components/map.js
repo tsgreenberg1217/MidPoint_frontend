@@ -9,6 +9,7 @@ const url =  "http://localhost:3001/api/v1/"
 
 const apiKey =  ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
 
+
 export class MapContainer extends Component {
 
   constructor(props){
@@ -20,17 +21,18 @@ export class MapContainer extends Component {
       eventAddresses: [],
       newAddress: '',
       addressType: '',
-      user: {}
+      user: {},
+      term: 'restaurant'
     }
     this.saveAddressSubmit = this.saveAddressSubmit.bind(this)
   }
 
-  componentDidUpdate(){
+  handleTypeChange = e => {
+    this.setState({
+      term: e.target.value
+    })
   }
 
-  componentDidMount = () => {
-    debugger
-  }
 
   handleChange = e => {
     this.setState({
@@ -39,13 +41,6 @@ export class MapContainer extends Component {
   };
 
 
-  // fetchCoordinates = () => {
-  //   fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.address}&key=${apiKey}`)
-  //   .then(res => res.json())
-  //   .then(json => this.setState({
-  //     lat: json.results[0].geometry.location.lat,
-  //     lng: json.results[0].geometry.location.lng},() => this.fetchToYelp(this.state.lat,this.state.lng) ) )
-  // }
 
   postCoordinates = () => {
     const body = {
@@ -65,9 +60,9 @@ export class MapContainer extends Component {
     .then(res => res.json())
   }
 
+  fetchToYelp(lat,lng,term){
 
   fetchToYelp(lat,lng){
-    debugger
     const body = {
       method: "POST",
       headers: {
@@ -76,24 +71,21 @@ export class MapContainer extends Component {
       },
       body: JSON.stringify({
         lat: lat,
-        lng: lng
+        lng: lng,
+        term: this.state.term
       })
     }
-
     fetch(`${url}adapters`, body)
     .then(res => res.json()).then(json => this.setState({
       yelpResults: json.businesses.sort(function(a,b){return b.rating-a.rating}).slice(0,6)
     }, () => this.postCoordinates() ))
   }
 
-
-
   fetchMultipleCoordinates = (address, length) => {
 
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
     .then(res => res.json())
     .then(json =>
-
       this.setState({
       eventAddresses: [...this.state.eventAddresses, {
         lat: json.results[0].geometry.location.lat,
@@ -105,13 +97,14 @@ export class MapContainer extends Component {
   }
 
   calculateMidpoint = () => {
+    
     const result = getLatLong(this.state.eventAddresses)
 
     this.setState({
       lat: result.lat,
       lng: result.lng,
       eventAddresses: []
-   }, () => this.fetchToYelp(this.state.lat,this.state.lng) )
+   }, () => this.fetchToYelp(this.state.lat,this.state.lng,this.state.term) )
   }
 
   handleAddressSubmit = (state) => {
@@ -174,6 +167,7 @@ render() {
 
         <AddressBar
         handleSubmit={this.handleAddressSubmit}
+        handleTypeChange={this.handleTypeChange}
         />
 
         {(this.state.lat && this.state.lng) ?
