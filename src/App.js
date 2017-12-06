@@ -13,7 +13,6 @@ class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      // users: [],
       user: {},
       login: false
     }
@@ -22,7 +21,6 @@ class App extends React.Component {
   }
 
   handleLogin = (userData) => {
-    debugger
     localStorage.setItem('token', userData.jwt)
     this.setState({user: {username: userData.username}, login: true}, this.goToMap)
   }
@@ -49,7 +47,6 @@ class App extends React.Component {
        }
 
        componentDidMount = () => {
-         debugger
 
          const token = localStorage.getItem("token");
          if (token) {

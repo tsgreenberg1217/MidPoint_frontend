@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Map, { InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import AddressBar from './addressBar'
 import RestaurantList from './restaurantList'
+import SavedAddresses from './savedAddresses'
 import { Form } from "semantic-ui-react";
 import {getMidArray, getLatLong} from '../services/midpoint'
 
@@ -22,7 +23,8 @@ export class MapContainer extends Component {
       newAddress: '',
       addressType: '',
       user: {},
-      term: 'restaurant'
+      term: 'restaurant',
+      savedAddressSelection: '',
     }
     this.saveAddressSubmit = this.saveAddressSubmit.bind(this)
   }
@@ -39,6 +41,12 @@ export class MapContainer extends Component {
       [e.target.name]: e.target.value
     });
   };
+
+  handleSavedAddressChange = e => {
+    this.setState({
+      savedAddressSelection: e.target.value
+    });
+  }
 
 
 
@@ -126,7 +134,8 @@ export class MapContainer extends Component {
       },
       body: JSON.stringify({
         name: this.state.newAddress,
-        addressType: this.state.addressType
+        addressType: this.state.addressType,
+        user: this.props.user.user.username
       })
     }
     fetch(`http://localhost:3001/api/v1/addresses`, body)
@@ -168,7 +177,10 @@ render() {
         handleSubmit={this.handleAddressSubmit}
         handleTypeChange={this.handleTypeChange}
         />
-
+        <SavedAddresses
+        handleSavedAddressChange={this.handleSavedAddresses}
+        handleSavedAddressChange={this.handleChange}
+        />
         {(this.state.lat && this.state.lng) ?
           <Map
           google={this.props.google}
