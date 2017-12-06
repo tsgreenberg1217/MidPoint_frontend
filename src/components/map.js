@@ -62,7 +62,6 @@ export class MapContainer extends Component {
 
   fetchToYelp(lat,lng,term){
 
-  fetchToYelp(lat,lng){
     const body = {
       method: "POST",
       headers: {
@@ -97,7 +96,7 @@ export class MapContainer extends Component {
   }
 
   calculateMidpoint = () => {
-    
+
     const result = getLatLong(this.state.eventAddresses)
 
     this.setState({
