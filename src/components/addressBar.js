@@ -1,17 +1,16 @@
 import React from 'react'
 import { Button, Icon,Input } from 'semantic-ui-react'
 
-
-
-
 class AddressBar extends React.Component{
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state= {
-      addresses: [{address: ''},{address: ''}]
+      addresses: [{address: ''},{address: ''}],
     }
     this.handleAuxAddressChange = this.handleAuxAddressChange.bind(this)
     this.addAddress = this.addAddress.bind(this)
+      // this.handleTypeChange = this
+    
   }
 
   handleMainChange = (name) => {
@@ -50,6 +49,17 @@ class AddressBar extends React.Component{
         this.props.handleSubmit(this.state)
       }}>
 
+      <div>
+        <select
+        onChange={this.props.handleTypeChange}
+        value = {this.state.value}
+        >
+          <option value="restaurant">Restaurant</option>
+          <option value="bar">Bar</option>
+          <option value="museum">Museum</option>
+          </select>
+
+      </div>
       <div>
         <Input
           list='languages'
