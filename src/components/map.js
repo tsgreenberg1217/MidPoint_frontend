@@ -159,6 +159,7 @@ render() {
         user = {this.props.user.user.username}
         />
         : <p></p>}
+        <br/><br/>
         {(this.state.lat && this.state.lng) ?
           <Map
           google={this.props.google}
