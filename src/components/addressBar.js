@@ -10,7 +10,7 @@ class AddressBar extends React.Component{
     this.handleAuxAddressChange = this.handleAuxAddressChange.bind(this)
     this.addAddress = this.addAddress.bind(this)
       // this.handleTypeChange = this
-    
+
   }
 
   handleMainChange = (name) => {
@@ -65,10 +65,10 @@ class AddressBar extends React.Component{
           list='languages'
           placeholder='Your address...'
           onChange = {e => this.handleMainChange(e.target.value)}/>
-        <datalist id='languages'>
-          <option value='Home' />
-          <option value='Work' />
-        </datalist>
+        <select id='addresses'>
+        {(this.props.userAddresses) ? this.props.userAddresses.map(address => {return <option>{address.name}</option>})
+      : null}
+        </select>
       </div>
 
       {this.state.addresses.slice(1).map((address,i) =>

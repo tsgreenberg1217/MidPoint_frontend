@@ -20,9 +20,11 @@ class App extends React.Component {
 
   }
 
+  // user.addresses.directions/name is type
+
   handleLogin = (userData) => {
     localStorage.setItem('token', userData.jwt)
-    this.setState({user: {username: userData.username}, login: true}, this.goToMap)
+    this.setState({user: userData, login: true}, this.goToMap)
   }
 
   goToMap = () => {
@@ -59,7 +61,6 @@ class App extends React.Component {
            })
            .then(res => res.json())
            .then(json => this.setState( () => {
-            //  this.goToMap()
              return { user: json, login:true }
 
            }));

@@ -176,6 +176,7 @@ render() {
         <AddressBar
         handleSubmit={this.handleAddressSubmit}
         handleTypeChange={this.handleTypeChange}
+        userAddresses = {this.props.user.user.addresses}
         />
         <SavedAddresses
         handleSavedAddressChange={this.handleSavedAddresses}
