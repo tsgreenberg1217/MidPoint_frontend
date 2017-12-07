@@ -152,7 +152,7 @@ render() {
 
     return (
       <div>
-        {(this.props.user.user) ? <AddressBar
+        {(this.props.user.user.username) ? <AddressBar
         handleSubmit={this.handleAddressSubmit}
         handleTypeChange={this.handleTypeChange}
         userAddresses = {this.props.user.user.addresses}
