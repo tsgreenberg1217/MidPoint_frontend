@@ -60,9 +60,9 @@ class App extends React.Component {
              }
            })
            .then(res => res.json())
-           .then(json => this.setState( () => {
-             return { user: json, login:true }
-
+           .then(json => this.setState({
+             user: json,
+             login: true
            }));
          } else {
            if (!window.location.href.includes("signup")) {
