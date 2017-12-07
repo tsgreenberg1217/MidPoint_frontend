@@ -46,4 +46,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* CityYelp and the endless wisdom of Nicholas Paolino (and thanks for the Yelp API key)
+* CityYelp and the endless wisdom of Nicholas Paolino
