@@ -111,7 +111,7 @@ export class MapContainer extends Component {
       lat: result.lat,
       lng: result.lng,
       eventAddresses: []
-   }, () => this.fetchToYelp(this.state.lat,this.state.lng,this.state.term) )
+   }, () => this.fetchToYelp(this.state.lat, this.state.lng, this.state.term) )
   }
 
   handleAddressSubmit = (state) => {
@@ -139,7 +139,7 @@ export class MapContainer extends Component {
       })
     }
     fetch(`http://localhost:3001/api/v1/addresses`, body)
-    .then(res => res.json()).then(json => console.log(json))
+    .then(res => res.json()).then(json => {debugger})
   }
 
 render() {
@@ -173,15 +173,12 @@ render() {
 
       </Form>
 
-        <AddressBar
+        {(this.props.user.user.addresses) ? <AddressBar
         handleSubmit={this.handleAddressSubmit}
         handleTypeChange={this.handleTypeChange}
         userAddresses = {this.props.user.user.addresses}
         />
-        <SavedAddresses
-        handleSavedAddressChange={this.handleSavedAddresses}
-        handleSavedAddressChange={this.handleChange}
-        />
+        : <p></p>}
         {(this.state.lat && this.state.lng) ?
           <Map
           google={this.props.google}

@@ -6,18 +6,23 @@ class AddressBar extends React.Component{
     super(props)
     this.state= {
       addresses: [{address: ''},{address: ''}],
+      userAddresses: this.props.userAddresses
     }
     this.handleAuxAddressChange = this.handleAuxAddressChange.bind(this)
     this.addAddress = this.addAddress.bind(this)
-      // this.handleTypeChange = this
-
   }
 
+
   handleMainChange = (name) => {
-    // console.log(this.state.addresses)
     this.setState({
       addresses: [{address: name}, ...this.state.addresses.slice(1)]
     })
+  }
+
+  handleMainChangeSelect = (value) => {
+    this.setState({
+      addresses: [{address: value}, ...this.state.addresses.slice(1)]
+    }, () => console.log(this.state))
   }
 
   handleAuxAddressChange = (name, index) => {
@@ -41,8 +46,13 @@ class AddressBar extends React.Component{
     })
   }
 
+
   render(){
+
+
     return(
+
+
 
       <form onSubmit= {(e) => {
         e.preventDefault()
@@ -64,10 +74,14 @@ class AddressBar extends React.Component{
         <Input
           list='languages'
           placeholder='Your address...'
+          value = {this.state.addresses[0].address}
           onChange = {e => this.handleMainChange(e.target.value)}/>
-        <select id='addresses'>
-        {(this.props.userAddresses) ? this.props.userAddresses.map(address => {return <option>{address.name}</option>})
-      : null}
+        <select id='addresses'
+        onChange = {e => this.handleMainChangeSelect(e.target.value)}>
+        {(this.state.userAddresses) ? this.state.userAddresses.map(address =>  <option
+                                                                                value = {address.directions}
+                                                                                >{address.name}</option>)
+                                    : null}
         </select>
       </div>
 
@@ -82,9 +96,6 @@ class AddressBar extends React.Component{
             onChange = {e => this.handleAuxAddressChange(e.target.value, i)}
           />
         </div>
-        //dropdown menu that has my save "types"
-        //dropdown has an onChange that says does a fetch to the backend of the actual addresses
-        //event.target.value where input name =1,
       )
       )
     }
