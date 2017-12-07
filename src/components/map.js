@@ -22,7 +22,8 @@ export class MapContainer extends Component {
       newAddress: '',
       addressType: '',
       user: {},
-      term: 'restaurant'
+      term: 'restaurant',
+      usersSavedAddresses: {},
     }
 
     this.saveAddressSubmit = this.saveAddressSubmit.bind(this)
@@ -105,7 +106,7 @@ export class MapContainer extends Component {
   }
 
   calculateMidpoint = () => {
-    
+
     const result = getLatLong(this.state.eventAddresses)
 
     this.setState({
