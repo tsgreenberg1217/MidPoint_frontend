@@ -1,15 +1,20 @@
 import React from 'react'
-import { Button, Icon,Input } from 'semantic-ui-react'
+import { Button, Icon,Input, Form } from 'semantic-ui-react'
 
 class AddressBar extends React.Component{
   constructor(props){
     super(props)
     this.state= {
       addresses: [{address: ''},{address: ''}],
-      userAddresses: this.props.userAddresses
+      userAddresses: this.props.userAddresses,
+      user: this.props.user,
+      newAddress: '',
+      addressType: ''
     }
     this.handleAuxAddressChange = this.handleAuxAddressChange.bind(this)
     this.addAddress = this.addAddress.bind(this)
+    this.saveAddressSubmit = this.saveAddressSubmit.bind(this)
+
   }
 
 
@@ -47,11 +52,64 @@ class AddressBar extends React.Component{
   }
 
 
+
+  saveAddressSubmit(e){
+    e.preventDefault()
+    const body = {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: this.state.newAddress,
+        addressType: this.state.addressType,
+        user: this.state.user
+      })
+    }
+    fetch(`http://localhost:3001/api/v1/addresses`, body)
+    .then(res => res.json()).then( () => window.location.reload(true))
+  }
+
+  handleTypeChange = e => {
+    this.setState({
+      term: e.target.value
+    })
+  }
+
+
+    handleChange = e => {
+      this.setState({
+        [e.target.name]: e.target.value
+      });
+    };
+
+
   render(){
 
 
     return(
 
+    <div>
+      <Form onSubmit={this.saveAddressSubmit}>
+        <Form.Group widths="12">
+          <Form.Input
+            name="newAddress"
+            onChange={this.handleChange}
+            label="New Address"
+            placeholder="new address"
+          />
+          <Form.Input
+            name="addressType"
+            onChange={this.handleChange}
+            label="Address Type"
+            type="text"
+            placeholder="type"
+          />
+          <Form.Button>Submit</Form.Button>
+        </Form.Group>
+
+      </Form>
 
 
       <form onSubmit= {(e) => {
@@ -110,6 +168,7 @@ class AddressBar extends React.Component{
       <Button primary>Submit</Button>
       <br/>
       </form>
+    </div>
 
 
 

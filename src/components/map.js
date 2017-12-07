@@ -152,31 +152,11 @@ render() {
 
     return (
       <div>
-
-      <Form onSubmit={this.saveAddressSubmit}>
-        <Form.Group widths="12">
-          <Form.Input
-            name="newAddress"
-            onChange={this.handleChange}
-            label="New Address"
-            placeholder="new address"
-          />
-          <Form.Input
-            name="addressType"
-            onChange={this.handleChange}
-            label="Address Type"
-            type="text"
-            placeholder="type"
-          />
-          <Form.Button>Submit</Form.Button>
-        </Form.Group>
-
-      </Form>
-
-        {(this.props.user.user.addresses) ? <AddressBar
+        {(this.props.user.user.addresses && this.props.user.user.username) ? <AddressBar
         handleSubmit={this.handleAddressSubmit}
         handleTypeChange={this.handleTypeChange}
         userAddresses = {this.props.user.user.addresses}
+        user = {this.props.user.user.username}
         />
         : <p></p>}
         {(this.state.lat && this.state.lng) ?
