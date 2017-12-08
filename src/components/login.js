@@ -36,7 +36,6 @@ class Login extends React.Component {
   handleLoginSubmit = (e) => {
     e.preventDefault();
     const body = this.state;
-
     fetch(`${url}auth`, {
       method: "POST",
       headers: {'content-type': 'application/json',
@@ -47,12 +46,9 @@ class Login extends React.Component {
       .then(res => res.json())
       .then(json => {
         if (!json.error) {
-          console.log(this.props.handleLogin);
           localStorage.setItem("token", json.jwt);
+          debugger
           this.props.handleLogin(json)
-
-          // this.goToMap()
-          //
         }
       }
     )

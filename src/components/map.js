@@ -29,6 +29,7 @@ export class MapContainer extends Component {
     this.saveAddressSubmit = this.saveAddressSubmit.bind(this)
   }
 
+
   handleTypeChange = e => {
     this.setState({
       term: e.target.value
@@ -139,7 +140,7 @@ export class MapContainer extends Component {
       })
     }
     fetch(`http://localhost:3001/api/v1/addresses`, body)
-    .then(res => res.json()).then(json => {debugger})
+    .then(res => {debugger})
   }
 
 render() {

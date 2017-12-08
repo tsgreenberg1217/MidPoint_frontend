@@ -28,7 +28,7 @@ class Signup extends React.Component {
       method: "POST",
       headers,
       body: JSON.stringify(body)
-    }).then(() => this.props.history.push("/map"))
+    }).then(res => res.json()).then(json => this.props.handleSignup(json))
     ;
   };
 

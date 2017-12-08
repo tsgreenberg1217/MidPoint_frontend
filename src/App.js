@@ -17,10 +17,17 @@ class App extends React.Component {
       login: false
     }
     this.handleLogin = this.handleLogin.bind(this)
+    this.handleSignupFromApp = this.handleSignupFromApp.bind(this)
 
   }
 
-  // user.addresses.directions/name is type
+  handleSignupFromApp(data){
+    debugger
+    this.setState({
+      user: data,
+      login: true
+    }, this.goToMap)
+  }
 
   handleLogin = (userData) => {
     localStorage.setItem('token', userData.jwt)
@@ -33,7 +40,7 @@ class App extends React.Component {
 
       logout = () => {
          localStorage.removeItem("token");
-         this.setState({ currentUser: {} });
+         this.setState({ currentUser: {}, login: false });
          this.props.history.push("/login");
        };
 
@@ -49,7 +56,6 @@ class App extends React.Component {
        }
 
        componentDidMount = () => {
-
          const token = localStorage.getItem("token");
          if (token) {
            fetch(`${url}current_user`, {
@@ -60,10 +66,9 @@ class App extends React.Component {
              }
            })
            .then(res => res.json())
-           .then(json => this.setState({
-             user: json,
-             login: true
-           }));
+           .then(json => {
+             this.setState({ user: json,login: true})
+           });
          } else {
            if (!window.location.href.includes("signup")) {
              this.props.history.push("/login");
@@ -93,7 +98,7 @@ class App extends React.Component {
           </div>
         )}
 
-        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/signup" render={() => <Signup handleSignup = {this.handleSignupFromApp}/>}/>
         <Route exact path="/login" render={() => <Login handleLogin = {this.handleLogin}/>}/>
         <Route exact path="/map" render={() => <MapContainer user = {this.state}/>}/>
         <loginNavBar />

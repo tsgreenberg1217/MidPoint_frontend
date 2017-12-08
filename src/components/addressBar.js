@@ -68,7 +68,9 @@ class AddressBar extends React.Component{
       })
     }
     fetch(`http://localhost:3001/api/v1/addresses`, body)
-    .then(res => res.json()).then( () => window.location.reload(true))
+    .then(res => res.json()).then(json => this.setState({
+      userAddresses: json.addresses
+    }, () => console.log('sup')))
   }
 
   handleTypeChange = e => {
@@ -141,8 +143,7 @@ class AddressBar extends React.Component{
         onChange = {e => this.handleMainChangeSelect(e.target.value)}>
         {(this.state.userAddresses) ? this.state.userAddresses.map(address =>  <option
                                                                                 value = {address.directions}
-                                                                                >{address.name}</option>)
-                                    : null}
+                                                                                >{address.name}</option>): null}
         </select>
       </div>
 
