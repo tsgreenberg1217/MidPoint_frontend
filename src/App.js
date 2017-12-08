@@ -22,7 +22,6 @@ class App extends React.Component {
   }
 
   handleSignupFromApp(data){
-    debugger
     this.setState({
       user: data,
       login: true

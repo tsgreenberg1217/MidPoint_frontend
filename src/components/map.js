@@ -165,7 +165,7 @@ render() {
         {(this.state.lat && this.state.lng) ?
           <Map
           google={this.props.google}
-          zoom={16}
+          zoom={12}
           style={style}
           initialCenter={{
             lat: this.state.lat,

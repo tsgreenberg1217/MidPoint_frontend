@@ -1,11 +1,5 @@
 # Midpoint
 
-{(this.state.userAddresses) ? this.state.userAddresses.map(address =>  <option
-                                                                        value = {address.directions}
-                                                                        >{address.name}</option>)
-
-
-
 Hate the dread of making decisions on where to meet up with friends? Midpoint is your one-stop to make the process equitable and easy. Tell us where your friends are coming from and what you want to do, then we'll do the rest. Our software calculates the midpoint and gives you options based off that area.
 
 ## Getting Started
