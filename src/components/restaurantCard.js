@@ -4,8 +4,10 @@ const paragraph = <ImageComponent src='/assets/images/wireframe/short-paragraph.
 
 
 const RestaurantCard = (props) => {
+  const goToLink = (url) =>{
+    window.location = url
+  }
   return(
-    <Item.Group divided>
       <Item>
         <Item.Image src={props.image} />
 
@@ -16,8 +18,9 @@ const RestaurantCard = (props) => {
           </Item.Meta>
           <Item.Description>{props.location}</Item.Description>
           <Item.Extra>
-            <Button primary floated='left'>
-              Lets do it!
+            <Button primary floated='left'
+            onClick = {() => goToLink(props.url)}>
+              Check it out
               <Icon name='right chevron' />
             </Button>
           </Item.Extra>
@@ -25,7 +28,6 @@ const RestaurantCard = (props) => {
         <Divider />
       </Item>
 
-    </Item.Group>
   )
 }
 export default RestaurantCard

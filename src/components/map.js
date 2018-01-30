@@ -143,7 +143,7 @@ export class MapContainer extends Component {
       })
     }
     fetch(`http://localhost:3001/api/v1/addresses`, body)
-    .then(res => {debugger})
+    .then(res => res.json())
   }
 
 render() {
