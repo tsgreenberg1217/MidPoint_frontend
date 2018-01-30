@@ -172,8 +172,8 @@ render() {
             lng: this.state.lng
           }}
           >
-          {this.state.yelpResults.map(result => <Marker position={
-            {
+          {this.state.yelpResults.map(result => <Marker position=
+            {{
               lat: result.coordinates.latitude,
               lng: result.coordinates.longitude
             }}/>)}
