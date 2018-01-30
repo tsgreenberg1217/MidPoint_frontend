@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon,Input, Form, Segment } from 'semantic-ui-react'
+import {Dropdown, Button, Icon,Input, Form, Segment } from 'semantic-ui-react'
 
 class AddressBar extends React.Component{
   constructor(props){
@@ -27,7 +27,7 @@ class AddressBar extends React.Component{
   handleMainChangeSelect = (value) => {
     this.setState({
       addresses: [{address: value}, ...this.state.addresses.slice(1)]
-    }, () => {debugger})
+    },)
   }
 
   handleAuxAddressChange = (name, index) => {
@@ -75,7 +75,7 @@ class AddressBar extends React.Component{
 
   handleTypeChange = e => {
     this.setState({
-      term: e.target.value
+      term: e.value
     })
   }
 
@@ -89,27 +89,23 @@ class AddressBar extends React.Component{
 
   render(){
     return(
-
     <div>
-
-
-
-      <form onSubmit= {(e) => {
+      <Form onSubmit= {(e) => {
         e.preventDefault()
         this.props.handleSubmit(this.state)
       }}>
 
-      <div>
-        <select
-        onChange={this.props.handleTypeChange}
-        value = {this.state.value}
-        >
-          <option value="restaurant">Restaurant</option>
-          <option value="bar">Bar</option>
-          <option value="museum">Museum</option>
-          </select>
 
+      <br/><br/><br/>
+      <div>
+        <Dropdown placeholder = 'choose a venue'
+        onChange={(e,v) => this.handleTypeChange(v)}
+        value = {this.state.value}
+        search selection
+        options = {[{key: 'restaurant', value: 'restaurant', text: 'Restaurant'},{key: 'bar', value: 'bar', text:"Bar"},{key: 'museum', value: 'museum', text:"Museum"}]}>
+        </Dropdown>
       </div>
+
       <br/>
       <div>
         <Input
@@ -145,9 +141,11 @@ class AddressBar extends React.Component{
           <Icon name='add' />
         </Button.Content>
       </Button>
+      <br/>
+      <br/>
       <Button primary>Submit</Button>
       <br/>
-      </form>
+      </Form>
     </div>
 
 

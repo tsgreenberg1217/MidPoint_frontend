@@ -154,15 +154,7 @@ render() {
     zIndex: '0'
   }
   const formStyle = {
-    position: 'relative',
     zIndex: '1',
-    width: '300px',
-    margin: '60px auto 0',
-    padding: '10px',
-    background: 'black',
-    height: 'auto',
-    opacity: '.45',
-    color: 'white'
   }
 
     return (
@@ -193,9 +185,8 @@ render() {
               results = {this.state.yelpResults}/>: <p></p>}
 
               {(this.props.user.user.username) ?
-                
               <AddressBar
-              style = {{formStyle}}
+              
               handleSubmit={this.handleAddressSubmit}
               handleTypeChange={this.handleTypeChange}
               userAddresses = {this.props.user.user.addresses}
