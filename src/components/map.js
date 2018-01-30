@@ -88,7 +88,7 @@ export class MapContainer extends Component {
     .then(res => res.json()).then(json => this.setState({
       yelpResults: json.businesses.sort(function(a,b){return b.rating-a.rating}).slice(0,6),
       loading: false
-    }, () => this.postCoordinates() ))
+    }))
   }
 
   fetchMultipleCoordinates = (address, length) => {
