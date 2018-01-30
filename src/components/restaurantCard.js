@@ -5,12 +5,11 @@ const paragraph = <ImageComponent src='/assets/images/wireframe/short-paragraph.
 
 const RestaurantCard = (props) => {
   const goToLink = (url) =>{
-    window.location = url
+    window.open().location = url
   }
   return(
       <Item>
         <Item.Image src={props.image} />
-
         <Item.Content>
           <Item.Header as='a'>{props.name}</Item.Header>
           <Item.Meta>
