@@ -104,6 +104,15 @@ export class MapContainer extends Component {
     }, () => this.state.eventAddresses.length === length ? this.calculateMidpoint() : null
   )
   )
+  .catch(error => this.handleError())
+  }
+
+  handleError(){
+    this.setState({
+      lat: 40.748541,
+      lng: -73.985763,
+      loading: false
+    })
   }
 
   calculateMidpoint = () => {
@@ -188,7 +197,7 @@ render() {
         <Grid columns = {3}>
         <Grid.Column>
         {(this.props.user.user.username) ?
-          <Segment   inverted >
+          <Segment inverted >
           <AddressBar
           loading = {this.state.loading}
           style = {{formStyle}}
