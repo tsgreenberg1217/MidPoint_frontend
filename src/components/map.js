@@ -16,6 +16,7 @@ export class MapContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
+      error: false,
       loading: false,
       lat: 40.748541,
       lng: -73.985763,
@@ -87,7 +88,8 @@ export class MapContainer extends Component {
     fetch(`${url}adapters`, body)
     .then(res => res.json()).then(json => this.setState({
       yelpResults: json.businesses.sort(function(a,b){return b.rating-a.rating}).slice(0,6),
-      loading: false
+      loading: false,
+      error: false
     }))
   }
 
@@ -111,7 +113,8 @@ export class MapContainer extends Component {
     this.setState({
       lat: 40.748541,
       lng: -73.985763,
-      loading: false
+      loading: false,
+      error: true
     })
   }
 
@@ -199,6 +202,7 @@ render() {
         {(this.props.user.user.username) ?
           <Segment inverted >
           <AddressBar
+          error = {this.state.error}
           loading = {this.state.loading}
           style = {{formStyle}}
           handleSubmit={this.handleAddressSubmit}
