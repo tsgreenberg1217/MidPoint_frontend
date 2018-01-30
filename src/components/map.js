@@ -3,7 +3,7 @@ import Map, { InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import AddressBar from './addressBar'
 import RestaurantList from './restaurantList'
 import SavedAddresses from './savedAddresses'
-import { Form } from "semantic-ui-react";
+import { Form, Grid, Segment } from "semantic-ui-react";
 import {getMidArray, getLatLong} from '../services/midpoint'
 
 const url =  "http://localhost:3001/api/v1/"
@@ -145,28 +145,34 @@ export class MapContainer extends Component {
 
 render() {
   // debugger
-  const style = {
-    display: 'block',
-    width: '50%',
-    height: '50%'
+  const mapStyle = {
+    height: '100%',
+    width: '100%',
+    position:'absolute',
+    top: '0',
+    left: '0',
+    zIndex: '0'
+  }
+  const formStyle = {
+    position: 'relative',
+    zIndex: '1',
+    width: '300px',
+    margin: '60px auto 0',
+    padding: '10px',
+    background: 'black',
+    height: 'auto',
+    opacity: '.45',
+    color: 'white'
   }
 
     return (
       <div>
-        {(this.props.user.user.username) ? <AddressBar
-        handleSubmit={this.handleAddressSubmit}
-        handleTypeChange={this.handleTypeChange}
-        userAddresses = {this.props.user.user.addresses}
-        user = {this.props.user.user.username}
-        userStuff = {this.props.user.user}
-        />
-        : <p></p>}
-        <br/><br/>
+
         {(this.state.lat && this.state.lng) ?
           <Map
           google={this.props.google}
           zoom={12}
-          style={style}
+          style={mapStyle}
           initialCenter={{
             lat: this.state.lat,
             lng: this.state.lng
@@ -181,11 +187,22 @@ render() {
           <p>loading map.....</p>
         }
 
-
-
           {this.state.yelpResults[1] ?
             <RestaurantList
+              style = {{float: 'right'}}
               results = {this.state.yelpResults}/>: <p></p>}
+
+              {(this.props.user.user.username) ?
+                
+              <AddressBar
+              style = {{formStyle}}
+              handleSubmit={this.handleAddressSubmit}
+              handleTypeChange={this.handleTypeChange}
+              userAddresses = {this.props.user.user.addresses}
+              user = {this.props.user.user.username}
+              userStuff = {this.props.user.user}
+              />
+              : <p></p>}
       </div>
     );
   }

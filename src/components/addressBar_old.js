@@ -88,10 +88,35 @@ class AddressBar extends React.Component{
 
 
   render(){
+
+
     return(
 
     <div>
+    <Segment>
+      <Form onSubmit={this.saveAddressSubmit}>
+          <Form.Input
+            style = {{width: '200px'}}
+            name="newAddress"
+            onChange={this.handleChange}
+            label="New Address"
+            placeholder="new address"
+          />
+          <br/>
 
+          <Form.Input
+          style = {{width: '200px'}}
+            name="addressType"
+            onChange={this.handleChange}
+            label="Address Type"
+            type="text"
+            placeholder="type"
+          />
+          <Form.Button>Save Address</Form.Button>
+          <br/>
+
+      </Form>
+      </Segment>
 
 
       <form onSubmit= {(e) => {
@@ -110,17 +135,18 @@ class AddressBar extends React.Component{
           </select>
 
       </div>
-      <br/>
       <div>
         <Input
-        style = {{width: '22%'}}
-        label={{ icon: 'asterisk' }}
-        labelPosition='left corner'
-        placeholder='enter address...'
-        type = "text"
+          list='languages'
+          placeholder='Your address...'
           value = {this.state.addresses[0].address}
           onChange = {e => this.handleMainChange(e.target.value)}/>
-
+        <select id='addresses'
+        onChange = {e => this.handleMainChangeSelect(e.target.value)}>
+        {(this.state.userAddresses) ? this.state.userAddresses.map(address =>  <option
+                                                                                value = {address.directions}
+                                                                                >{address.name}</option>): null}
+        </select>
       </div>
 
       {this.state.addresses.slice(1).map((address,i) =>
