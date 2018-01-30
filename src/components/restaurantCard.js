@@ -10,21 +10,21 @@ const RestaurantCard = (props) => {
   return(
       <Item>
         <Item.Image src={props.image} />
-        <Item.Content>
+        <Item.Content style = {{minWidth: '50%'}}>
           <Item.Header as='a'>{props.name}</Item.Header>
           <Item.Meta>
             <span className='cinema'>{props.phone}</span>
           </Item.Meta>
           <Item.Description>{props.location}</Item.Description>
           <Item.Extra>
-            <Button primary floated='left'
+            <Button  floated='left'
+            color = 'youtube'
             onClick = {() => goToLink(props.url)}>
               Check it out
-              <Icon name='right chevron' />
+              <Icon name='yelp' />
             </Button>
           </Item.Extra>
         </Item.Content>
-        <Divider />
       </Item>
 
   )
