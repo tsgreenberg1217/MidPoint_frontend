@@ -135,7 +135,8 @@ export class MapContainer extends Component {
     this.setState({
       loading: true,
       lat:null,
-      lng: null
+      lng: null,
+      error: false
       }, ()=> addresses.map(address => { return this.fetchMultipleCoordinates(address.address, length) }))
 
   }
@@ -180,7 +181,7 @@ render() {
         {(this.state.lat && this.state.lng) ?
           <Map
           google={this.props.google}
-          zoom={12}
+          zoom={11}
           style={mapStyle}
           initialCenter={{
             lat: this.state.lat,
@@ -215,8 +216,7 @@ render() {
           : <p></p>}
         </Grid.Column>
 
-        <Grid.Column>
-        </Grid.Column>
+        <Grid.Column/>
 
         <Grid.Column style = {{width:'%100'}}>
         {this.state.yelpResults[1] ?
