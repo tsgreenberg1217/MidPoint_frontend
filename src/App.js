@@ -6,7 +6,7 @@ import Login from './components/login'
 import Loginbar from './components/loginNavbar'
 import Navbar from './components/navbar'
 
-const url =  "http://localhost:3001/api/v1/";
+const url =  "http://localhost:3001/api/v1/"
 
 
 class App extends React.Component {
