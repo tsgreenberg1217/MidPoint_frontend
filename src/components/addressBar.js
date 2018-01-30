@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon,Input, Form } from 'semantic-ui-react'
+import { Button, Icon,Input, Form, Segment } from 'semantic-ui-react'
 
 class AddressBar extends React.Component{
   constructor(props){
@@ -27,7 +27,7 @@ class AddressBar extends React.Component{
   handleMainChangeSelect = (value) => {
     this.setState({
       addresses: [{address: value}, ...this.state.addresses.slice(1)]
-    }, () => console.log(this.state))
+    }, () => {debugger})
   }
 
   handleAuxAddressChange = (name, index) => {
@@ -93,6 +93,7 @@ class AddressBar extends React.Component{
     return(
 
     <div>
+    <Segment>
       <Form onSubmit={this.saveAddressSubmit}>
           <Form.Input
             style = {{width: '200px'}}
@@ -115,6 +116,7 @@ class AddressBar extends React.Component{
           <br/>
 
       </Form>
+      </Segment>
 
 
       <form onSubmit= {(e) => {

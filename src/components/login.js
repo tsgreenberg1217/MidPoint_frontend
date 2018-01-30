@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Form } from "semantic-ui-react";
+import { Form, Grid, Icon, Image } from "semantic-ui-react";
 const url = "http://localhost:3001/api/v1/";
 
 class Login extends React.Component {
@@ -82,18 +82,29 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>Log in</h2>
+
+
+
+      <Grid celled textAlign = 'center'>
+
+
+
+      <Grid.Row columns = {3}>
+      <Grid.Column/>
+      <Grid.Column>
+        <Image
+        centered
+        src = 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-256.png' alt='marker'/>
+        <h2>lets meet in the middle</h2>
         <Form onSubmit={this.handleLoginSubmit}>
-          <Form.Group widths="12">
+          <Form.Group style = {{textAlign: 'centered'}} inline widths="12">
             <Form.Input
+
               name="username"
               onChange={this.handleChange}
               label="Username"
               placeholder="username"
             />
-          </Form.Group>
-          <Form.Group widths="12">
             <Form.Input
               name="password"
               onChange={this.handleChange}
@@ -102,9 +113,16 @@ class Login extends React.Component {
               placeholder="Password"
             />
           </Form.Group>
-          <Form.Button>Submit</Form.Button>
+          <Form.Button>Login</Form.Button>
         </Form>
-      </div>
+        </Grid.Column>
+        <Grid.Column/>
+        </Grid.Row>
+
+        <Grid.Row>
+
+        </Grid.Row>
+      </Grid>
     );
   }
 }

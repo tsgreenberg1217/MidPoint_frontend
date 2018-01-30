@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "semantic-ui-react";
+import { Form, Grid, Icon, Image } from "semantic-ui-react";
 const url = "http://localhost:3001/api/v1/";
 
 class Signup extends React.Component {
@@ -34,18 +34,24 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div>
+      <Grid celled textAlign = 'center'>
+      <Grid.Row  columns = {3}>
+      <Grid.Column/>
+
+      <Grid.Column>
+      <Image
+      centered
+      src = 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-256.png' alt='marker'/>
         <h2>Signup</h2>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group widths="12">
+          <Form.Group style = {{textAlign: 'centered'}} inline widths="12">
             <Form.Input
               name="username"
               onChange={this.handleChange}
               label="Username"
               placeholder="username"
             />
-          </Form.Group>
-          <Form.Group widths="12">
+
             <Form.Input
               name="password"
               onChange={this.handleChange}
@@ -54,19 +60,13 @@ class Signup extends React.Component {
               placeholder="Password"
             />
           </Form.Group>
-          <Form.Group widths="12">
-            <Form.Input
-              name="email"
-              onChange={this.handleChange}
-              label="Email"
-              type="text"
-              placeholder="Email"
-            />
-          </Form.Group>
-          <Form.Button>Submit</Form.Button>
+          <Form.Button>Lets Go!</Form.Button>
         </Form>
+        </Grid.Column>
+        <Grid.Column/>
+        </Grid.Row>
 
-      </div>
+      </Grid>
     );
   }
 }
