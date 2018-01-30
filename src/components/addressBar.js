@@ -97,18 +97,16 @@ class AddressBar extends React.Component{
 
 
       <br/><br/><br/>
-      <div>
+
         <Dropdown placeholder = 'choose a venue'
         onChange={(e,v) => this.handleTypeChange(v)}
         value = {this.state.value}
         search selection
         options = {[{key: 'restaurant', value: 'restaurant', text: 'Restaurant'},{key: 'bar', value: 'bar', text:"Bar"},{key: 'museum', value: 'museum', text:"Museum"}]}>
         </Dropdown>
-      </div>
 
       <br/>
-      <div>
-        <Input
+        <Form.Input
         style = {{width: '22%'}}
         label={{ icon: 'asterisk' }}
         labelPosition='left corner'
@@ -117,11 +115,10 @@ class AddressBar extends React.Component{
           value = {this.state.addresses[0].address}
           onChange = {e => this.handleMainChange(e.target.value)}/>
 
-      </div>
 
       {this.state.addresses.slice(1).map((address,i) =>
-       (<div key = {i+1}>
-         <Input
+       (
+         <Form.Input key = {i+1}
             style = {{width: '22%'}}
             label={{ icon: 'asterisk' }}
             labelPosition='left corner'
@@ -129,7 +126,7 @@ class AddressBar extends React.Component{
             type = "text"
             onChange = {e => this.handleAuxAddressChange(e.target.value, i)}
           />
-        </div>
+
       )
       )
     }

@@ -155,6 +155,7 @@ render() {
   }
   const formStyle = {
     zIndex: '1',
+    position: 'relative'
   }
 
     return (
@@ -178,22 +179,22 @@ render() {
           </Map> :
           <p>loading map.....</p>
         }
-
+        {(this.props.user.user.username) ?
+        <AddressBar
+        style = {{formStyle}}
+        handleSubmit={this.handleAddressSubmit}
+        handleTypeChange={this.handleTypeChange}
+        userAddresses = {this.props.user.user.addresses}
+        user = {this.props.user.user.username}
+        userStuff = {this.props.user.user}
+        />
+        : <p></p>}
           {this.state.yelpResults[1] ?
             <RestaurantList
-              style = {{float: 'right'}}
+              style = {{formStyle}}
               results = {this.state.yelpResults}/>: <p></p>}
 
-              {(this.props.user.user.username) ?
-              <AddressBar
-              
-              handleSubmit={this.handleAddressSubmit}
-              handleTypeChange={this.handleTypeChange}
-              userAddresses = {this.props.user.user.addresses}
-              user = {this.props.user.user.username}
-              userStuff = {this.props.user.user}
-              />
-              : <p></p>}
+
       </div>
     );
   }
