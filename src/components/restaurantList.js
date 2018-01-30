@@ -1,9 +1,12 @@
 import React from 'react'
 import RestaurantCard from './restaurantCard'
+import {Segment } from "semantic-ui-react";
 
 const RestaurantList = (props) => {
   const AllRestaurants = props.results.map(rest =>{
-      return <RestaurantCard
+      return (
+      <Segment>
+      <RestaurantCard
       key = {rest.id}
       name = {rest.name}
       url = {rest.url}
@@ -11,12 +14,13 @@ const RestaurantList = (props) => {
       image = {rest.image_url}
       location = {rest.location.address1}
       />
+    </Segment>)
   })
 
   return(
-    <div style = {{float : 'right'}}>
+    <div>
       {AllRestaurants}
-    </div>
+      </div>
   )
 }
 

@@ -105,7 +105,7 @@ class AddressBar extends React.Component{
         options = {[{key: 'restaurant', value: 'restaurant', text: 'Restaurant'},{key: 'bar', value: 'bar', text:"Bar"},{key: 'museum', value: 'museum', text:"Museum"}]}>
         </Dropdown>
         <Button animated
-        style = {{float: 'right'}}
+        style = {{float: 'left'}}
         onClick = {this.addAddress}>
           <Button.Content visible>Add Address</Button.Content>
           <Button.Content hidden>
@@ -133,7 +133,7 @@ class AddressBar extends React.Component{
       )
     }
 
-      <Button primary>Submit</Button>
+      <Button primary loading = {this.props.loading}>Submit</Button>
       </Form>
     </div>
 

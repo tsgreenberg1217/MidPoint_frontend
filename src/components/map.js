@@ -3,7 +3,7 @@ import Map, { InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import AddressBar from './addressBar'
 import RestaurantList from './restaurantList'
 import SavedAddresses from './savedAddresses'
-import { Form, Grid, Segment, Container } from "semantic-ui-react";
+import { Form, Grid, Segment, Container, Loader } from "semantic-ui-react";
 import {getMidArray, getLatLong} from '../services/midpoint'
 
 const url =  "http://localhost:3001/api/v1/"
@@ -16,6 +16,7 @@ export class MapContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
+      loading: false,
       lat: 40.748541,
       lng: -73.985763,
       yelpResults: [],
@@ -85,7 +86,8 @@ export class MapContainer extends Component {
     }
     fetch(`${url}adapters`, body)
     .then(res => res.json()).then(json => this.setState({
-      yelpResults: json.businesses.sort(function(a,b){return b.rating-a.rating}).slice(0,6)
+      yelpResults: json.businesses.sort(function(a,b){return b.rating-a.rating}).slice(0,6),
+      loading: false
     }, () => this.postCoordinates() ))
   }
 
@@ -119,6 +121,7 @@ export class MapContainer extends Component {
     const addresses = state.addresses
     const length = state.addresses.length
     this.setState({
+      loading: true,
       lat:null,
       lng: null
       }, ()=> addresses.map(address => { return this.fetchMultipleCoordinates(address.address, length) }))
@@ -151,10 +154,12 @@ render() {
     position:'absolute',
     top: '0',
     left: '0',
-    zIndex: '0'
+    zIndex: '0',
+    overflow: 'hidden'
   }
   const formStyle = {
     zIndex: '1',
+    minWidth: '%100'
   }
 
     return (
@@ -185,6 +190,7 @@ render() {
         {(this.props.user.user.username) ?
           <Segment   inverted >
           <AddressBar
+          loading = {this.state.loading}
           style = {{formStyle}}
           handleSubmit={this.handleAddressSubmit}
           handleTypeChange={this.handleTypeChange}
@@ -196,20 +202,18 @@ render() {
           : <p></p>}
         </Grid.Column>
 
-        <Grid.Column/>
-
         <Grid.Column>
+        </Grid.Column>
+
+        <Grid.Column style = {{width:'%100'}}>
         {this.state.yelpResults[1] ?
           <RestaurantList
-          style = {{formStyle}}
+          style = {{zIndex: '1'}}
           results = {this.state.yelpResults}/>: <p></p>}
         </Grid.Column>
 
         </Grid>
         </Container>
-
-
-
       </div>
     );
   }

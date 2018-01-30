@@ -21,9 +21,8 @@ const RestaurantCard = (props) => {
               <Icon name='right chevron' />
             </Button>
           </Item.Extra>
-          <Item.Image src='/assets/images/wireframe/image.png' />
-          <Divider />
         </Item.Content>
+        <Divider />
       </Item>
 
     </Item.Group>
