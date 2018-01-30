@@ -96,20 +96,25 @@ class AddressBar extends React.Component{
       }}>
 
 
-      <br/><br/><br/>
-
+      <Segment.Group>
         <Dropdown placeholder = 'choose a venue'
+        style = {{marginRight:'.5%'}}
         onChange={(e,v) => this.handleTypeChange(v)}
         value = {this.state.value}
         search selection
         options = {[{key: 'restaurant', value: 'restaurant', text: 'Restaurant'},{key: 'bar', value: 'bar', text:"Bar"},{key: 'museum', value: 'museum', text:"Museum"}]}>
         </Dropdown>
+        <Button animated
+        style = {{float: 'right'}}
+        onClick = {this.addAddress}>
+          <Button.Content visible>Add Address</Button.Content>
+          <Button.Content hidden>
+            <Icon name='add' />
+          </Button.Content>
+        </Button>
+        </Segment.Group>
 
-      <br/>
         <Form.Input
-        style = {{width: '22%'}}
-        label={{ icon: 'asterisk' }}
-        labelPosition='left corner'
         placeholder='enter address...'
         type = "text"
           value = {this.state.addresses[0].address}
@@ -119,9 +124,6 @@ class AddressBar extends React.Component{
       {this.state.addresses.slice(1).map((address,i) =>
        (
          <Form.Input key = {i+1}
-            style = {{width: '22%'}}
-            label={{ icon: 'asterisk' }}
-            labelPosition='left corner'
             placeholder='enter address...'
             type = "text"
             onChange = {e => this.handleAuxAddressChange(e.target.value, i)}
@@ -130,18 +132,8 @@ class AddressBar extends React.Component{
       )
       )
     }
-      <br/>
-      <Button animated
-      onClick = {this.addAddress}>
-        <Button.Content visible>Add Address</Button.Content>
-        <Button.Content hidden>
-          <Icon name='add' />
-        </Button.Content>
-      </Button>
-      <br/>
-      <br/>
+
       <Button primary>Submit</Button>
-      <br/>
       </Form>
     </div>
 

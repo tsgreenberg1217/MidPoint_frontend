@@ -3,7 +3,7 @@ import Map, { InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import AddressBar from './addressBar'
 import RestaurantList from './restaurantList'
 import SavedAddresses from './savedAddresses'
-import { Form, Grid, Segment } from "semantic-ui-react";
+import { Form, Grid, Segment, Container } from "semantic-ui-react";
 import {getMidArray, getLatLong} from '../services/midpoint'
 
 const url =  "http://localhost:3001/api/v1/"
@@ -155,7 +155,6 @@ render() {
   }
   const formStyle = {
     zIndex: '1',
-    position: 'relative'
   }
 
     return (
@@ -179,20 +178,36 @@ render() {
           </Map> :
           <p>loading map.....</p>
         }
+
+        <Container>
+        <Grid columns = {3}>
+        <Grid.Column>
         {(this.props.user.user.username) ?
-        <AddressBar
-        style = {{formStyle}}
-        handleSubmit={this.handleAddressSubmit}
-        handleTypeChange={this.handleTypeChange}
-        userAddresses = {this.props.user.user.addresses}
-        user = {this.props.user.user.username}
-        userStuff = {this.props.user.user}
-        />
-        : <p></p>}
-          {this.state.yelpResults[1] ?
-            <RestaurantList
-              style = {{formStyle}}
-              results = {this.state.yelpResults}/>: <p></p>}
+          <Segment   inverted >
+          <AddressBar
+          style = {{formStyle}}
+          handleSubmit={this.handleAddressSubmit}
+          handleTypeChange={this.handleTypeChange}
+          userAddresses = {this.props.user.user.addresses}
+          user = {this.props.user.user.username}
+          userStuff = {this.props.user.user}
+          />
+          </Segment>
+          : <p></p>}
+        </Grid.Column>
+
+        <Grid.Column/>
+
+        <Grid.Column>
+        {this.state.yelpResults[1] ?
+          <RestaurantList
+          style = {{formStyle}}
+          results = {this.state.yelpResults}/>: <p></p>}
+        </Grid.Column>
+
+        </Grid>
+        </Container>
+
 
 
       </div>
