@@ -3,7 +3,7 @@ import { withRouter, Route } from "react-router-dom";
 import MapContainer from './components/map'
 import Signup from './components/signup'
 import Login from './components/login'
-import Loginbar from './components/loginNavbar'
+import Loginbar from './components/Loginbar'
 import Navbar from './components/navbar'
 
 const url =  "http://localhost:3001/api/v1/"
