@@ -1,6 +1,5 @@
 import React from 'react'
-import { Button, Icon, Image as ImageComponent, Item, Label, Divider } from 'semantic-ui-react'
-const paragraph = <ImageComponent src='/assets/images/wireframe/short-paragraph.png' />
+import { Button, Icon, Image as ImageComponent, Item } from 'semantic-ui-react'
 
 
 const RestaurantCard = (props) => {

@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import Map, { InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import Map, { Marker, GoogleApiWrapper} from 'google-maps-react';
 import AddressBar from './addressBar'
 import RestaurantList from './restaurantList'
-import SavedAddresses from './savedAddresses'
-import { Form, Grid, Segment, Container, Loader } from "semantic-ui-react";
+import { Grid, Segment, Container } from "semantic-ui-react";
 import {getMidArray, getLatLong} from '../services/midpoint'
 
 // const url =  "http://localhost:3001/api/v1/"

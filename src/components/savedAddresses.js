@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon,Input } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 
 class SavedAddresses extends React.Component{
   constructor(props){

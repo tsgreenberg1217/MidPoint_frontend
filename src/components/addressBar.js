@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dropdown, Button, Icon,Input, Form, Segment } from 'semantic-ui-react'
+import {Dropdown, Button, Icon, Form, Segment } from 'semantic-ui-react'
 
 class AddressBar extends React.Component{
   constructor(props){

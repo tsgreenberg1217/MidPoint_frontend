@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Form, Grid, Icon, Image } from "semantic-ui-react";
+import { Form, Grid, Image } from "semantic-ui-react";
 const url = "https://mymidpointserver.herokuapp.com/api/v1/";
 
 class Login extends React.Component {
