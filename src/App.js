@@ -6,7 +6,7 @@ import Login from './components/login'
 import Loginbar from './components/Loginbar'
 import Navbar from './components/navbar'
 
-const url =  "http://localhost:3001/api/v1/"
+const url =  "https://mymidpointserver.herokuapp.com/api/v1/"
 
 
 class App extends React.Component {
