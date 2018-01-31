@@ -20,7 +20,7 @@ Once you have gone into the folder for Midpoint, the following will download the
 
 The rails application interacts with the front-end React application in various ways. The first is through the sign-up/login process that either persists your data or logs you in. This is done using bcrypt user authentication to make sure your data is secure. Based off your user data, it loads your saved locations that you have made during other sessions on our site.
 
-The other times the front-end interacts with the back is through API requests. Midpoint uses the google coordinates, google maps react, and Yelp API's. We request information google coordinates when you submit the locations of yourself and your friends. The google maps react API is then sent a request to get a proper map based off of the locations of your group. Lastly, the Yelp API is sent a request with the location as the coordinates of your party's midpoint along with the type of establishment you are interested in.
+The other times the front-end interacts with the back is through API requests. Midpoint uses the google coordinates, google maps react, and Yelp API's. We request information google coordinates when you submit the locations of yourself and your friends. The google maps react API is then sent a request to get a proper map based off of the locations of your group. Lastly, the Yelp API is sent a request with the location as the coordinates of your party's midpoint along with the type of establishment you are interested in
 
 
 ## Built With
