@@ -17,7 +17,7 @@ const RestaurantCard = (props) => {
           </Item.Meta>
           <Item.Description>{props.location}</Item.Description>
           <Item.Extra>
-            <Button  floated='left'
+            <Button
             color = 'youtube'
             onClick = {() => goToLink(props.url)}>
               Check it out

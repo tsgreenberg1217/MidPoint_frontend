@@ -28,7 +28,6 @@ export class MapContainer extends Component {
       term: 'restaurant',
       savedAddressSelection: '',
     }
-    this.saveAddressSubmit = this.saveAddressSubmit.bind(this)
   }
 
 
@@ -53,24 +52,6 @@ export class MapContainer extends Component {
 
 
 
-  postCoordinates = () => {
-    const body = {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        address: this.state.address,
-        lat: this.state.lat,
-        lng: this.state.lng,
-        addressType: this.state.addressType
-      })
-    }
-    fetch(`http://localhost:3001/api/v1/addresses`, body)
-    .then(res => res.json())
-  }
-
   fetchToYelp(lat,lng,term){
 
     const body = {
@@ -86,15 +67,19 @@ export class MapContainer extends Component {
       })
     }
     fetch(`${url}adapters`, body)
-    .then(res => res.json()).then(json => this.setState({
+    .then(res => res.json())
+    .then(json => {
+      this.setState({
       yelpResults: json.businesses.sort(function(a,b){return b.rating-a.rating}).slice(0,6),
       loading: false,
       error: false
-    }))
+    })})
+    .catch(error =>{
+      this.handleError()
+    })
   }
 
   fetchMultipleCoordinates = (address, length) => {
-
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
     .then(res => res.json())
     .then(json =>
@@ -130,37 +115,34 @@ export class MapContainer extends Component {
   }
 
   handleAddressSubmit = (state) => {
+
     const addresses = state.addresses
+
+    let blank = true
+    addresses.forEach( a=> {
+      if(a.address === ""){
+        blank = false
+      }
+    })
+
+    if(blank){
     const length = state.addresses.length
     this.setState({
       loading: true,
       lat:null,
       lng: null,
       error: false
-      }, ()=> addresses.map(address => { return this.fetchMultipleCoordinates(address.address, length) }))
+      }, ()=> addresses.map(address => { return this.fetchMultipleCoordinates(address.address, length) }))}
+      else{
+
+        this.handleError()
+      }
 
   }
 
-  saveAddressSubmit(e){
-    e.preventDefault()
-    const body = {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: this.state.newAddress,
-        addressType: this.state.addressType,
-        user: this.props.user.user.username
-      })
-    }
-    fetch(`http://localhost:3001/api/v1/addresses`, body)
-    .then(res => res.json())
-  }
+
 
 render() {
-  // debugger
   const mapStyle = {
     height: '100%',
     width: '100%',

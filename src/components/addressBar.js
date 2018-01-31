@@ -137,7 +137,7 @@ class AddressBar extends React.Component{
       <p>One of your inputs is invalid, please try again</p>
       </div>
       : null}
-      {this.props.error ? <br/>:null}
+    {this.props.error ? <br/>:null}
       <Button primary loading = {this.props.loading}>Submit</Button>
       </Form>
     </div>
