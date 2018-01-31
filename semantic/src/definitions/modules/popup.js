@@ -625,11 +625,11 @@ $.fn.popup = function(parameters) {
             }
             return distanceFromBoundary;
           },
-          offsetParent: function($element) {
+          offsetParent: function($target) {
             var
-              element = ($element !== undefined)
-                ? $element[0]
-                : $target[0],
+              element = ($target !== undefined)
+                ? $target[0]
+                : $module[0],
               parentNode = element.parentNode,
               $node    = $(parentNode)
             ;
