@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Form, Grid, Icon, Image } from "semantic-ui-react";
-const url = "http://localhost:3001/api/v1/";
+const url = "https://mymidpointserver.herokuapp.com/api/v1/";
 
 class Login extends React.Component {
   constructor(props) {
