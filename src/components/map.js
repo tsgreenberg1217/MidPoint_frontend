@@ -6,7 +6,8 @@ import SavedAddresses from './savedAddresses'
 import { Form, Grid, Segment, Container, Loader } from "semantic-ui-react";
 import {getMidArray, getLatLong} from '../services/midpoint'
 
-const url =  "http://localhost:3001/api/v1/"
+// const url =  "http://localhost:3001/api/v1/"
+const url = "https://mymidpoint-server.herokuapp.com/api/v1/"
 
 const apiKey =  ('AIzaSyCsmeDgEFx6LZXsP0WqJN0B_9bm61_c1ZQ')
 
